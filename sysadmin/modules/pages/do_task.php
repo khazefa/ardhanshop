@@ -17,7 +17,8 @@ if(!isset($isLoggedIn) || $isLoggedIn != TRUE){
     // Save data
     if ($getpage == "list-pages" AND $getact == "save"){
         $ftitle = isset($_POST["ftitle"]) ? filter_var($_POST['ftitle'], FILTER_SANITIZE_STRING) : null;
-        $fcontent = isset($_POST["fcontent"]) ? filter_var($_POST['fcontent'], FILTER_SANITIZE_STRING) : null;
+//        $fcontent = isset($_POST["fcontent"]) ? filter_var($_POST['fcontent'], FILTER_SANITIZE_STRING) : null;
+        $fcontent = isset($_POST["fcontent"]) ? $_POST['fcontent'] : null;
         $fpublish = isset($_POST["fpublish"]) ? filter_var($_POST['fpublish'], FILTER_SANITIZE_STRING) : null;
         
         $fslug = strtolower(str_replace(" ", "-", $ftitle));
@@ -38,7 +39,8 @@ if(!isset($isLoggedIn) || $isLoggedIn != TRUE){
         $fid = isset($_POST["fid"]) ? filter_var($_POST['fid'], FILTER_SANITIZE_NUMBER_INT) : 0;
         $ftitle = isset($_POST["ftitle"]) ? filter_var($_POST['ftitle'], FILTER_SANITIZE_STRING) : null;
         $fslug = isset($_POST["fslug"]) ? filter_var($_POST['fslug'], FILTER_SANITIZE_STRING) : null;
-        $fcontent = isset($_POST["fcontent"]) ? filter_var($_POST['fcontent'], FILTER_SANITIZE_STRING) : null;
+//        $fcontent = isset($_POST["fcontent"]) ? filter_var($_POST['fcontent'], FILTER_SANITIZE_STRING) : null;
+        $fcontent = isset($_POST["fcontent"]) ? $_POST['fcontent'] : null;
         $fpublish = isset($_POST["fpublish"]) ? filter_var($_POST['fpublish'], FILTER_SANITIZE_STRING) : null;
         
         $update = array(
