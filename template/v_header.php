@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="assets/vendor/owl.carousel/assets/owl.carousel.css">
     <link rel="stylesheet" href="assets/vendor/owl.carousel/assets/owl.theme.default.css">
     <!-- theme stylesheet-->
-    <link rel="stylesheet" href="assets/css/style.default.css" id="theme-stylesheet">
+    <link rel="stylesheet" href="assets/css/style.blue.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="assets/css/custom.css">
     <!-- Favicon and apple touch icons-->
