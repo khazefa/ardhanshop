@@ -19,6 +19,7 @@
                     'payment-list'=>'modules/payments/v_list.php',
                     'bank-acc'=>'modules/bank-accounts/v_list.php',
                     'courier-list'=>'modules/courier/v_list.php',
+                    'list-pages'=>'modules/pages/v_list.php',
                     'user-list'=>'modules/users/v_list.php',
                     'dashboard'=>'modules/dashboard.php'
                 );

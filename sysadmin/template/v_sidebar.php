@@ -38,6 +38,7 @@
                         <li><a href="?page=bank-acc"><em class="fa fa-bank">&nbsp;</em> Bank Accounts</a></li>
                         <li><a href="?page=courier-list"><em class="fa fa-truck">&nbsp;</em> Shipping</a></li>
                         <li><a href="?page=user-list"><em class="fa fa-user-md">&nbsp;</em> User List</a></li>
+                        <li><a href="?page=list-pages"><em class="fa fa-sitemap">&nbsp;</em> Konten Website</a></li>
 			<li><a href="logout.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
 		</ul>
 	</div><!--/.sidebar-->
