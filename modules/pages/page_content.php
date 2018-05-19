@@ -1,5 +1,5 @@
 <?php
-    $key = htmlspecialchars($_GET["key"], ENT_QUOTES, 'UTF-8');
+    $key = htmlspecialchars($_GET["q"], ENT_QUOTES, 'UTF-8');
     $query = "SELECT pg_title, pg_slug, pg_content, pg_publish FROM site_pages WHERE pg_slug = '$key' ";
     if( $database->num_rows( $query ) > 0 )
     {

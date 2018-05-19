@@ -17,8 +17,8 @@
                   </li>
                   -->
                   <!-- ========== About Us dropdown end ==================-->
-                  <li class="nav-item"><a href="?page=pages&key=tentang-kami">Tentang Kami</a></li>
-                  <li class="nav-item"><a href="?page=pages&key=cara-pembayaran">Cara Pembayaran</a></li>
+                  <li class="nav-item"><a href="?page=pages&q=tentang-kami">Tentang Kami</a></li>
+                  <li class="nav-item"><a href="?page=pages&q=cara-pembayaran">Cara Pembayaran</a></li>
                   <li class="nav-item"><a href="contact.html">Contact Us</a></li>
                   <!-- <li class="nav-item"><a href="shop-basket.html"><i class="fa fa-shopping-cart"></i> Shopping Cart (<span id="total-cart">0</span>)</a></li> -->
                 </ul>
