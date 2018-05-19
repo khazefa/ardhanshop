@@ -21,30 +21,30 @@
                   <li class="nav-item"><a href="?page=static&q=cara-pembayaran">Cara Pembayaran</a></li>
                   <li class="nav-item"><a href="?page=kontak-kami">Kontak Kami</a></li>
                 </ul>
-                            <ul class="nav navbar-nav navbar-right">
-                                  <li class="nav-item dropdown">
-                                    <a href="javascript: void(0)" data-toggle="dropdown" class="dropdown-toggle"> <i class="fa fa-shopping-cart"></i> 7 - Items<b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                      <li class="dropdown-item">
-                                                  <span class="nav-link">
-                                                          <img src="http://via.placeholder.com/50x50" alt="" />
-                                                          <b>Item name 1</b>
-                                                          <button class="btn btn-sm btn-danger">x</button>
-                                                  </span>
-                                          </li>
-                      <li class="dropdown-item">
-                                                  <span class="nav-link">
-                                                          <img src="http://via.placeholder.com/50x50" alt="" />
-                                                          <b>Item name 1</b>
-                                                          <button class="btn btn-sm btn-danger">x</button>
-                                                  </span>
-                                          </li>
-                                      <li class="dropdown-item">
-                                                  <a href="shop-basket.html" class="nav-link text-center">View Cart</a>
-                                          </li>
-                                    </ul>
-                                  </li>
-                            </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item dropdown">
+                    <a href="javascript: void(0)" data-toggle="dropdown" class="dropdown-toggle"> <i class="fa fa-shopping-cart"></i> 7 - Items<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item">
+                                <span class="nav-link">
+                                    <img src="http://via.placeholder.com/50x50" alt="" />
+                                    <b>Item name 1</b>
+                                    <button class="btn btn-sm btn-danger">x</button>
+                                </span>
+                            </li>
+                            <li class="dropdown-item">
+                                <span class="nav-link">
+                                    <img src="http://via.placeholder.com/50x50" alt="" />
+                                    <b>Item name 1</b>
+                                    <button class="btn btn-sm btn-danger">x</button>
+                                </span>
+                            </li>
+                            <li class="dropdown-item">
+                                <a href="shop-basket.html" class="nav-link text-center">View Cart</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
               </div>
               <div id="search" class="collapse clearfix">
                 <form role="search" class="navbar-form">

@@ -4,10 +4,10 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-4 text-center-md">
-              <p>&copy; 2018</p>
+              <p>Copyright &copy; 2018</p>
             </div>
             <div class="col-lg-8 text-right text-center-md">
-              <p>by <a href="#">Ardhanshop </a></p>
+              <p>by <a href="<?php echo $baseurl; ?>">Ardhanshop </a></p>
             </div>
           </div>
         </div>
