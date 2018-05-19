@@ -4,6 +4,8 @@ require("includes/constants.php");
 //if (!isset($_SESSION['isSession'])){
 //    header('location:'.$baseurl);
 //}else{
+    require('includes/class.db.php');
+    $database = DB::getInstance();
     require("includes/global_helper.php");
     require("includes/common_helper.php");
     require("includes/auto_number_helper.php");

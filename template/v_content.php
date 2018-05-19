@@ -17,9 +17,10 @@
     }
 
     $page_files = array( 
-                    'items'=>'modules/products/items.php',
-                    'home'=>'modules/home.php'
-                );
+        'items'=>'modules/products/items.php',
+        'pages'=>'modules/pages/page_content.php',
+        'home'=>'modules/home.php'
+    );
 
     if (in_array($_GET['page'],array_keys($page_files))) {
         include $page_files[$_GET['page']];
