@@ -25,75 +25,33 @@
   </a>
 </div>
 
-<p class="text-muted lead">In our Ladies department we offer wide selection of the best products we have found and carefully selected worldwide. Pellentesque habitant morbi tristique senectus et netuss.</p>
+<p class="text-muted lead">Selamat datang, kami menawarkan produk-produk terbaik. Silahkan menghubungi kami jika Anda memiliki kesulitan dalam memilih produk yang tepat untuk Anda.</p>
 <div class="row products products-big">
-  <div class="col-lg-4 col-md-6">
-    <div class="product">
-      <div class="image"><a href="shop-detail.html"><img src="http://placehold.it/450x450" alt="" class="img-fluid image1"></a></div>
-      <div class="text">
-        <h3 class="h5"><a href="shop-detail.html">Fur coat with very but very very long name</a></h3>
-        <p class="price">$143.00</p>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-4 col-md-6">
-    <div class="product">
-      <div class="image"><a href="shop-detail.html"><img src="http://placehold.it/450x450" alt="" class="img-fluid image1"></a></div>
-      <div class="text">
-        <h3 class="h5"><a href="shop-detail.html">White Blouse Armani</a></h3>
-        <p class="price">
-          <del>$280</del> $143.00
-        </p>
-      </div>
-      <div class="ribbon-holder">
-        <div class="ribbon sale">SALE</div>
-        <div class="ribbon new">NEW</div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-4 col-md-6">
-    <div class="product">
-      <div class="image"><a href="shop-detail.html"><img src="http://placehold.it/450x450" alt="" class="img-fluid image1"></a></div>
-      <div class="text">
-        <h3 class="h5"><a href="shop-detail.html">Black Blouse Versace</a></h3>
-        <p class="price">$143.00</p>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-4 col-md-6">
-    <div class="product">
-      <div class="image"><a href="shop-detail.html"><img src="http://placehold.it/450x450" alt="" class="img-fluid image1"></a></div>
-      <div class="text">
-        <h3 class="h5"><a href="shop-detail.html">Black Blouse Versace</a></h3>
-        <p class="price">$143.00</p>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-4 col-md-6">
-    <div class="product">
-      <div class="image"><a href="shop-detail.html"><img src="http://placehold.it/450x450" alt="" class="img-fluid image1"></a></div>
-      <div class="text">
-        <h3 class="h5"><a href="shop-detail.html">White Blouse Armani</a></h3>
-        <p class="price">
-          <del>$280</del> $143.00
-        </p>
-      </div>
-      <div class="ribbon-holder">
-        <div class="ribbon sale">SALE</div>
-        <div class="ribbon new">NEW</div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-4 col-md-6">
-    <div class="product">
-      <div class="image"><a href="shop-detail.html"><img src="http://placehold.it/450x450" alt="" class="img-fluid image1"></a></div>
-      <div class="text">
-        <h3 class="h5"><a href="shop-detail.html">White Blouse Versace</a></h3>
-        <p class="price">$143.00</p>
-      </div>
-      <div class="ribbon-holder">
-        <div class="ribbon new">NEW</div>
-      </div>
-    </div>
-  </div>
+<?php
+    $query = "SELECT * FROM products ORDER BY product_id DESC LIMIT 6";
+    $results = $database->get_results( $query );
+    foreach( $results as $row )
+    {
+        $fprice = format_IDR($row["product_price"]);
+        $disc_state = (int)$row["product_disc"] > 0 ? TRUE : FALSE;
+        $disc = ((int)$row["product_disc"]/100)*$row["product_price"];
+        $disc_price = format_IDR(($row["product_price"]-$disc));
+        
+        $img_path = UPLOADS_DIR . 'products' . DIRECTORY_SEPARATOR;
+        $pict = !empty($row["product_pict"]) ? '<img class="img-fluid image1" src="'.$img_path.$row["product_pict"].'" alt="'.nohtml($row["product_name"]).'">' : '<img src="http://placehold.it/450x450" alt="" class="img-fluid image1">';
+        echo '<div class="col-lg-4 col-md-6">';
+            echo '<div class="product">';
+                echo '<div class="image"><a href="#">'.$pict.'</a></div>';
+                echo '<div class="text">';
+                echo '<h3 class="h5"><a href="#">'.nohtml($row["product_name"]).'</a></h3>';
+                if($disc_state){
+                    echo '<p class="price"><del>Rp. '.$fprice.'</del>Rp. '.$disc_price.'</p>';
+                }else{
+                    echo '<p class="price">Rp. '.$fprice.'</p>';
+                }
+                echo '</div>';
+            echo '</div>';
+        echo '</div>';
+    }
+?>  
 </div>
