@@ -4,7 +4,7 @@
     if( $database->num_rows( $query ) > 0 )
     {
         list( $title, $slug, $content, $publish ) = $database->get_row( $query );
-        $fcontent = nl2br($content, TRUE);
+        $fcontent = nl2br(html_entity_decode($content), TRUE);
     }
 ?>
 
