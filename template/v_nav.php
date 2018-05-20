@@ -40,6 +40,7 @@
                                     <button class="btn btn-sm btn-danger">x</button>
                                 </span>
                             </li>
+                            <div class="dropdown-divider"></div>
                             <li class="dropdown-item">
                                 <a href="shop-basket.html" class="nav-link text-center">View Cart</a>
                             </li>
