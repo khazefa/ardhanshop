@@ -16,15 +16,31 @@
         throw new \Exception("Remote file inclusion attempt!");
     }
 
-    $page_files = array( 
-        'produk'=>'modules/products/page_products.php',
-        'produk-detail'=>'modules/products/product_detail.php',
-        'kategori'=>'modules/products/page_category.php',
-        'merk'=>'modules/products/page_brand.php',
-        'static'=>'modules/pages/page_content.php',
-        'kontak-kami'=>'modules/contact/vform.php',
-        'home'=>'modules/home.php'
-    );
+    if (!isset($_SESSION['isSession'])){
+        $page_files = array( 
+            'produk'=>'modules/products/page_products.php',
+            'produk-detail'=>'modules/products/product_detail.php',
+            'kategori'=>'modules/products/page_category.php',
+            'merk'=>'modules/products/page_brand.php',
+            'static'=>'modules/pages/page_content.php',
+            'kontak-kami'=>'modules/contact/vform.php',
+            'enroll'=>'modules/customers/page_enroll.php',
+            'profil-akun'=>'modules/customers/page_enroll.php',
+            'home'=>'modules/home.php'
+        );
+    }else{
+        $page_files = array( 
+            'produk'=>'modules/products/page_products.php',
+            'produk-detail'=>'modules/products/product_detail.php',
+            'kategori'=>'modules/products/page_category.php',
+            'merk'=>'modules/products/page_brand.php',
+            'static'=>'modules/pages/page_content.php',
+            'kontak-kami'=>'modules/contact/vform.php',
+            'enroll'=>'modules/customers/page_enroll.php',
+            'profil-akun'=>'modules/customers/page_profile.php',
+            'home'=>'modules/home.php'
+        );
+    }
 
     if (in_array($_GET['page'],array_keys($page_files))) {
         include $page_files[$_GET['page']];

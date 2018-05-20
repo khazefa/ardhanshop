@@ -42,9 +42,9 @@
         $pict = !empty($row["product_pict"]) ? '<img class="img-fluid image1" src="'.$img_path.$row["product_pict"].'" alt="'.nohtml($row["product_name"]).'">' : '<img src="http://placehold.it/450x450" alt="" class="img-fluid image1">';
         echo '<div class="col-lg-4 col-md-6">';
             echo '<div class="product">';
-                echo '<div class="image"><a href="#">'.$pict.'</a></div>';
+                echo '<div class="image"><a href="?page=produk-detail&q='.$funiqid.'">'.$pict.'</a></div>';
                 echo '<div class="text">';
-                echo '<h3 class="h5"><a href="#">'.nohtml($row["product_name"]).'</a></h3>';
+                echo '<h3 class="h5"><a href="?page=produk-detail&q='.$funiqid.'">'.nohtml($row["product_name"]).'</a></h3>';
                 if($disc_state){
                     echo '<p class="price"><del>Rp. '.$fprice.'</del>Rp. '.$disc_price.'</p>';
                 }else{

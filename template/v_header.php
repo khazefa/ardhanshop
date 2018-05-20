@@ -50,10 +50,23 @@
                   <li class="list-inline-item"><a href="#"><i class="fa fa-phone"></i></a></li>
                   <li class="list-inline-item"><a href="#"><i class="fa fa-envelope"></i></a></li>
                 </ul>
-                <div class="login"><a href="#" data-toggle="modal" data-target="#login-modal" class="login-btn"><i class="fa fa-sign-in"></i><span class="d-none d-md-inline-block">Log In</span></a><a href="register.html" class="signup-btn"><i class="fa fa-user"></i><span class="d-none d-md-inline-block">Registrasi</span></a></div>
+                <div class="login">
+                    <?php
+                    if (!isset($_SESSION['isSession'])){
+                        ?>
+                        <a href="#" data-toggle="modal" data-target="#login-modal" class="login-btn"><i class="fa fa-sign-in"></i><span class="d-none d-md-inline-block">Log In</span></a>
+                        <a href="?page=enroll" class="signup-btn"><i class="fa fa-user"></i><span class="d-none d-md-inline-block">Registrasi</span></a>
+                        <?php
+                    }else{
+                        ?>
+                        <a href="?page=profil-akun" class="signup-btn"><i class="fa fa-user"></i><span class="d-none d-md-inline-block"><?php echo $_SESSION['vName'];?></span></a>
+                        <a href="logout.php" class="login-btn"><i class="fa fa-sign-out"></i><span class="d-none d-md-inline-block">Log Out</span></a>
+                        <?php
+                    }
+                    ?>
+                </div>
                 <ul class="social-custom list-inline">
                   <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                  <li class="list-inline-item"><a href="#"><i class="fa fa-google-plus"></i></a></li>
                   <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
                   <li class="list-inline-item"><a href="#"><i class="fa fa-envelope"></i></a></li>
                 </ul>
@@ -68,11 +81,11 @@
         <div role="document" class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 id="login-modalLabel" class="modal-title">Customer Login</h4>
+              <h4 id="login-modalLabel" class="modal-title">Login Pelanggan</h4>
               <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">
-              <form action="customer-orders.html" method="post">
+              <form action="#" method="post">
                 <div class="form-group">
                   <input id="email_modal" type="text" placeholder="email" class="form-control">
                 </div>
@@ -83,8 +96,8 @@
                   <button class="btn btn-template-outlined"><i class="fa fa-sign-in"></i> Log in</button>
                 </p>
               </form>
-              <p class="text-center text-muted">Not registered yet?</p>
-              <p class="text-center text-muted"><a href="register.html"><strong>Register now</strong></a>! It is easy and done in 1 minute and gives you access to special discounts and much more!</p>
+              <p class="text-center text-muted">Belum terdaftar?</p>
+              <p class="text-center text-muted"><a href="?page=enroll"><strong>Daftar sekarang</strong></a>!</p>
             </div>
           </div>
         </div>
