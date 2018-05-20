@@ -7,13 +7,13 @@
         <div class="panel-body">
           <ul class="nav nav-pills flex-column text-sm category-menu">
             <?php
-                $query = "SELECT pc.category_name, COUNT(p.product_uniqid) AS Qty FROM products_category AS pc "
+                $query = "SELECT pc.category_id, pc.category_name, COUNT(p.product_uniqid) AS Qty FROM products_category AS pc "
                         . "LEFT JOIN products AS p ON p.category_id = pc.category_id "
                         . "GROUP BY pc.category_name";
                 $results = $database->get_results( $query );
                 foreach( $results as $row )
                 {
-                    echo '<li class="nav-item"><a href="#" class="nav-link d-flex align-items-center justify-content-between"><span>'.nohtml($row["category_name"]).'</span> <span class="badge badge-secondary">'.(int)$row["Qty"].'</span></a></li>';
+                    echo '<li class="nav-item"><a href="?page=kategori&seq='.(int)$row["category_id"].'" class="nav-link d-flex align-items-center justify-content-between"><span>'.nohtml($row["category_name"]).'</span> <span class="badge badge-secondary">'.(int)$row["Qty"].'</span></a></li>';
                 }
             ?>  
             
