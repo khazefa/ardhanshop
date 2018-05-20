@@ -28,13 +28,13 @@
         <div class="panel-body">
           <ul class="nav nav-pills flex-column text-sm category-menu">
             <?php
-                $query = "SELECT pb.brand_name, COUNT(p.product_uniqid) AS Qty FROM products_brand AS pb "
+                $query = "SELECT pb.brand_id, pb.brand_name, COUNT(p.product_uniqid) AS Qty FROM products_brand AS pb "
                         . "LEFT JOIN products AS p ON p.brand_id = pb.brand_id "
                         . "GROUP BY pb.brand_name";
                 $results = $database->get_results( $query );
                 foreach( $results as $row )
                 {
-                    echo '<li class="nav-item"><a href="#" class="nav-link d-flex align-items-center justify-content-between"><span>'.nohtml($row["brand_name"]).'</span> <span class="badge badge-secondary">'.(int)$row["Qty"].'</span></a></li>';
+                    echo '<li class="nav-item"><a href="?page=merk&seq='.(int)$row["brand_id"].'" class="nav-link d-flex align-items-center justify-content-between"><span>'.nohtml($row["brand_name"]).'</span> <span class="badge badge-secondary">'.(int)$row["Qty"].'</span></a></li>';
                 }
             ?>  
             

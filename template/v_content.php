@@ -20,6 +20,7 @@
         'produk'=>'modules/products/page_products.php',
         'produk-detail'=>'modules/products/product_detail.php',
         'kategori'=>'modules/products/page_category.php',
+        'merk'=>'modules/products/page_brand.php',
         'static'=>'modules/pages/page_content.php',
         'kontak-kami'=>'modules/contact/vform.php',
         'home'=>'modules/home.php'
