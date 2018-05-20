@@ -59,7 +59,7 @@
                         <?php
                     }else{
                         ?>
-                        <a href="?page=profil-akun" class="signup-btn"><i class="fa fa-user"></i><span class="d-none d-md-inline-block"><?php echo $_SESSION['vName'];?></span></a>
+                        <a href="?page=profil-akun" class="signup-btn"><i class="fa fa-user"></i><span class="d-none d-md-inline-block"><?php echo $_SESSION['vcName'];?></span></a>
                         <a href="logout.php" class="login-btn"><i class="fa fa-sign-out"></i><span class="d-none d-md-inline-block">Log Out</span></a>
                         <?php
                     }
@@ -85,12 +85,12 @@
               <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">
-              <form action="#" method="post">
+              <form role="form" method="POST" action="?page=do_auth">
                 <div class="form-group">
-                  <input id="email_modal" type="text" placeholder="email" class="form-control">
+                  <input name="femail" id="femail" type="text" placeholder="email" class="form-control">
                 </div>
                 <div class="form-group">
-                  <input id="password_modal" type="password" placeholder="password" class="form-control">
+                  <input name="fpassword" id="fpassword" type="password" placeholder="password" class="form-control">
                 </div>
                 <p class="text-center">
                   <button class="btn btn-template-outlined"><i class="fa fa-sign-in"></i> Log in</button>

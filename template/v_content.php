@@ -25,6 +25,8 @@
             'static'=>'modules/pages/page_content.php',
             'kontak-kami'=>'modules/contact/vform.php',
             'enroll'=>'modules/customers/page_enroll.php',
+            'do_registrasi'=>'modules/customers/do_register.php',
+            'do_auth'=>'digi_auth.php',
             'profil-akun'=>'modules/customers/page_enroll.php',
             'home'=>'modules/home.php'
         );
