@@ -38,10 +38,12 @@
             echo '</div>';
         echo '</div>';
     }
+?>  
+</div>
+<?php
     echo '<div class="pages">';
         echo '<nav aria-label="Page navigation example" class="d-flex justify-content-center">';
         echo pagination($statement,$limit,$page);
         echo '</nav>';
     echo '</div>';
-?>  
-</div>
+?>
