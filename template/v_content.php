@@ -17,6 +17,7 @@
     }
 
     $page_files = array( 
+        'produk'=>'modules/products/page_products.php',
         'kategori'=>'modules/products/page_category.php',
         'static'=>'modules/pages/page_content.php',
         'kontak-kami'=>'modules/contact/vform.php',
