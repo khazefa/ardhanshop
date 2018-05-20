@@ -21,7 +21,7 @@
     	if($lastpage > 1)
     	{	
     		$pagination .= "<ul class='pagination'>";
-                $pagination .= "<li class='page-item'><a class='page-link'>Page $page of $lastpage</a></li>";
+                $pagination .= "<li class='page-item disabled'><a class='page-link'>Page $page of $lastpage</a></li>";
     		if ($lastpage < 7 + ($adjacents * 2))
     		{	
     			for ($counter = 1; $counter <= $lastpage; $counter++)
@@ -82,8 +82,8 @@
     			$pagination.= "<li class='page-item'><a href='{$url}page=$_GET[page]&nav=$next' class='page-link'>Next</a></li>";
                 $pagination.= "<li class='page-item'><a href='{$url}page=$_GET[page]&nav=$lastpage' class='page-link'>Last</a></li>";
     		}else{
-                    $pagination.= "<li class='page-item active'><a class='page-link'>Next</a></li>";
-                    $pagination.= "<li class='page-item active'><a class='page-link'>Last</a></li>";
+                    $pagination.= "<li class='page-item disabled'><a class='page-link'>Next</a></li>";
+                    $pagination.= "<li class='page-item disabled'><a class='page-link'>Last</a></li>";
                 }
     		$pagination.= "</ul>\n";		
     	}
