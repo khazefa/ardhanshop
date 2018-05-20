@@ -12,7 +12,7 @@ $funame = isset($_POST["runame"]) ? filter_var($_POST['runame'], FILTER_SANITIZE
 $fpass = isset($_POST["rpass"]) ? filter_var($_POST['rpass'], FILTER_SANITIZE_STRING) : null;
 $fname = isset($_POST["rname"]) ? filter_var($_POST['rname'], FILTER_SANITIZE_STRING) : null;
 $femail = isset($_POST["remail"]) ? filter_var($_POST['remail'], FILTER_SANITIZE_STRING) : null;
-
+$funiqid = strtoupper(generateRandomString(6));
 /**
  * Checking to see if a value exists
  */
@@ -31,14 +31,26 @@ if( $exists )
         'user_fullname' => $fname,
         'user_email' => $femail,
         'level_id' => 2,
-        'user_status' => 1,
+        'user_status' => 1
+    );
+    $arrValueC = array(
+        'customer_uniqid' => $funiqid,
+        'customer_name' => $fname,
+        'customer_email' => $femail
     );
     $add_query = $database->insert( 'users', $arrValue );
     if( $add_query )
     {
-        $url = $baseurl.'?page=enroll';
-        echo "<script type='text/javascript'>alert('Registrasi sukses!');window.location.href = '".$url."';</script>";
-        exit();
+        $add_query2 = $database->insert( 'customers', $arrValueC );
+        if($add_query2){
+            $url = $baseurl.'?page=enroll';
+            echo "<script type='text/javascript'>alert('Registrasi sukses!');window.location.href = '".$url."';</script>";
+            exit();
+        }else{
+            $url = $baseurl.'?page=enroll';
+            echo "<script type='text/javascript'>alert('Registrasi gagal!');window.location.href = '".$url."';</script>";
+            exit();
+        }
     }
 }
 ?>
