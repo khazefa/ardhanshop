@@ -59,8 +59,17 @@
                         <?php
                     }else{
                         ?>
-                        <a href="?page=profil-akun" class="signup-btn"><i class="fa fa-user"></i><span class="d-none d-md-inline-block"><?php echo $_SESSION['vcName'];?></span></a>
-                        <a href="logout.php" class="login-btn"><i class="fa fa-sign-out"></i><span class="d-none d-md-inline-block">Log Out</span></a>
+                        <div class="dropdown show">
+                            <a class="login-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <?php echo $_SESSION['vcName'];?>
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                              <a class="dropdown-item" href="?page=profil-akun">Edit Akun</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="logout.php">Log Out</a>
+                            </div>
+                        </div>
                         <?php
                     }
                     ?>
