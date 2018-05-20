@@ -23,7 +23,7 @@ if(!isset($isLoggedIn) || $isLoggedIn != TRUE){
         
         $arrValue = array(
             'user_keyname' => $funame,
-            'user_keypass' => $fpass,
+            'user_keypass' => md5($fpass),
             'user_fullname' => $fname,
             'user_email' => $femail,
             'level_id' => 2,
@@ -52,7 +52,7 @@ if(!isset($isLoggedIn) || $isLoggedIn != TRUE){
             );
         }else{
             $update = array(
-                'user_keypass' => $fpass,
+                'user_keypass' => md5($fpass),
                 'user_fullname' => $fname,
                 'user_email' => $femail,
                 'user_status' => $fstatus
