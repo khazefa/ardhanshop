@@ -17,7 +17,7 @@
         <h2 class="text-uppercase">Registrasi</h2>
         <p class="lead">Anda belum terdaftar?</p>
         <hr>
-        <form action="#" method="post">
+        <form role="form" method="POST" action="?page=do_registrasi">
           <div class="form-group">
             <label for="rname">Nama Lengkap</label>
             <input name="rname" id="rname" type="text" class="form-control">
@@ -41,7 +41,7 @@
         <h2 class="text-uppercase">Login</h2>
         <p class="lead">Apakah anda pelanggan kami?</p>
         <hr>
-        <form role="form" method="POST" action="digi_auth.php">
+        <form role="form" method="POST" action="?page=do_auth">
           <div class="form-group">
             <label for="femail">Email</label>
             <input name="femail" id="femail" type="text" class="form-control">
