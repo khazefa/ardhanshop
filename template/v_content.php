@@ -16,7 +16,7 @@
         throw new \Exception("Remote file inclusion attempt!");
     }
 
-    if (!isset($_SESSION['isSession'])){
+    if (empty($_SESSION['isSession'])){
         $page_files = array( 
             'produk'=>'modules/products/page_products.php',
             'produk-detail'=>'modules/products/product_detail.php',
@@ -28,6 +28,8 @@
             'do_registrasi'=>'modules/customers/do_register.php',
             'do_auth'=>'digi_auth.php',
             'profil-akun'=>'modules/customers/page_enroll.php',
+            'do_update_profile'=>'modules/customers/page_enroll.php',
+            'do_update_password'=>'modules/customers/page_enroll.php',
             'home'=>'modules/home.php'
         );
     }else{
@@ -40,6 +42,8 @@
             'kontak-kami'=>'modules/contact/vform.php',
             'enroll'=>'modules/customers/page_enroll.php',
             'profil-akun'=>'modules/customers/page_profile.php',
+            'do_update_profile'=>'modules/customers/do_profile.php',
+            'do_update_password'=>'modules/customers/do_password.php',
             'home'=>'modules/home.php'
         );
     }
