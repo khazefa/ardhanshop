@@ -9,7 +9,7 @@ header("Pragma: no-cache");
 header("Cache-Control: no-cache, must-revalidate");
 
 $funame = isset($_POST["runame"]) ? filter_var($_POST['runame'], FILTER_SANITIZE_STRING) : null;
-$fpass = isset($_POST["rpass"]) ? filter_var($_POST['rpass'], FILTER_SANITIZE_STRING) : null;
+$fpass = isset($_POST["rpassword"]) ? filter_var(md5($_POST['rpassword']), FILTER_SANITIZE_STRING) : null;
 $fname = isset($_POST["rname"]) ? filter_var($_POST['rname'], FILTER_SANITIZE_STRING) : null;
 $femail = isset($_POST["remail"]) ? filter_var($_POST['remail'], FILTER_SANITIZE_STRING) : null;
 $funiqid = strtoupper(generateRandomString(6));
@@ -27,7 +27,7 @@ if( $exists )
 }else{
     $arrValue = array(
         'user_keyname' => $femail,
-        'user_keypass' => md5($fpass),
+        'user_keypass' => $fpass,
         'user_fullname' => $fname,
         'user_email' => $femail,
         'level_id' => 2,
