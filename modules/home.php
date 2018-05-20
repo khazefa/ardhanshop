@@ -32,6 +32,7 @@
     $results = $database->get_results( $query );
     foreach( $results as $row )
     {
+        $funiqid = nohtml($row["product_uniqid"]);
         $fprice = format_IDR($row["product_price"]);
         $disc_state = (int)$row["product_disc"] > 0 ? TRUE : FALSE;
         $disc = ((int)$row["product_disc"]/100)*$row["product_price"];

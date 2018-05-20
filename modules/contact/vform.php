@@ -2,8 +2,14 @@
 
 ?>
 
-<div class="heading">
-  <h2>Kontak Kami</h2>
+<div id="heading-breadcrumbs">
+  <div class="container">
+    <div class="row d-flex align-items-center flex-wrap">
+      <div class="col-md-12">
+        <h1 class="h2">Kontak Kami</h1>
+      </div>
+    </div>
+  </div>
 </div>
 <p class="lead">Untuk menjawab pertanyaan Anda lebih baik, Customer service kami akan dengan senang hati membantu anda menemukan produk ban murah.</p>
           <section class="bar pt-0">

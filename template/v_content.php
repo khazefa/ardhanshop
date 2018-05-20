@@ -18,6 +18,7 @@
 
     $page_files = array( 
         'produk'=>'modules/products/page_products.php',
+        'produk-detail'=>'modules/products/product_detail.php',
         'kategori'=>'modules/products/page_category.php',
         'static'=>'modules/pages/page_content.php',
         'kontak-kami'=>'modules/contact/vform.php',

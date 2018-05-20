@@ -8,8 +8,14 @@
     }
 ?>
 
-<div class="heading">
-  <h2><?php echo $title; ?></h2>
+<div id="heading-breadcrumbs">
+  <div class="container">
+    <div class="row d-flex align-items-center flex-wrap">
+      <div class="col-md-12">
+        <h1 class="h2"><?php echo $title; ?></h1>
+      </div>
+    </div>
+  </div>
 </div>
 <p class="lead">
     <?php echo $fcontent; ?>
