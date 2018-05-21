@@ -41,5 +41,39 @@
           </ul>
         </div>
       </div>
-      <div class="banner"><a href="#"><img src="http://placehold.it/900x600" alt="sales 2014" class="img-fluid"></a></div>
+      <div class="heading">
+        <h4>Big Sale</h4>
+      </div>
+      <div class="banner">
+        <?php
+            $statement = "products WHERE product_disc = (SELECT MAX(product_disc) FROM products) ORDER BY RAND()";
+            $query = "SELECT * FROM {$statement} LIMIT 1";
+            $results = $database->get_results( $query );
+            foreach( $results as $row )
+            {
+                $funiqid = nohtml($row["product_uniqid"]);
+                $fprice = format_IDR($row["product_price"]);
+                $disc_state = (int)$row["product_disc"] > 0 ? TRUE : FALSE;
+                $disc = ((int)$row["product_disc"]/100)*$row["product_price"];
+                $disc_price = format_IDR(($row["product_price"]-$disc));
+
+                $img_path = UPLOADS_DIR . 'products' . DIRECTORY_SEPARATOR;
+                $pict = !empty($row["product_pict"]) ? '<img class="img-fluid" src="'.$img_path.$row["product_pict"].'" alt="'.nohtml($row["product_name"]).'">' : '<img src="http://placehold.it/900x600" alt="" class="img-fluid">';
+                
+                echo '<div class="col-lg-12 col-md-6">';
+                    echo '<div class="product">';
+                        echo '<div class="image"><a href="?page=produk-detail&q='.$funiqid.'">'.$pict.'</a></div>';
+                        echo '<div class="text">';
+                        echo '<h3 class="h5"><a href="?page=produk-detail&q='.$funiqid.'">'.nohtml($row["product_name"]).'</a></h3>';
+                        if($disc_state){
+                            echo '<p class="price"><del>Rp. '.$fprice.'</del>Rp. '.$disc_price.'</p>';
+                        }else{
+                            echo '<p class="price">Rp. '.$fprice.'</p>';
+                        }
+                        echo '</div>';
+                    echo '</div>';
+                echo '</div>';
+            }
+        ?>
+      </div>
     </div>

@@ -28,7 +28,8 @@
 <p class="text-muted lead">Selamat datang, kami menawarkan produk-produk terbaik. Silahkan menghubungi kami jika Anda memiliki kesulitan dalam memilih produk yang tepat untuk Anda.</p>
 <div class="row products products-big">
 <?php
-    $query = "SELECT * FROM products ORDER BY product_id DESC LIMIT 6";
+    $statement = "products ORDER BY product_id";
+    $query = "SELECT * FROM {$statement} LIMIT 6";
     $results = $database->get_results( $query );
     foreach( $results as $row )
     {
