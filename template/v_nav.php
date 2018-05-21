@@ -26,18 +26,19 @@
                     <li class="nav-item dropdown">
                     <a href="javascript: void(0)" data-toggle="dropdown" class="dropdown-toggle"> <i class="fa fa-shopping-cart"></i> 7 - Items<b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                            <?php
+                                include("cart_item.php");
+                            ?>
                             <li class="dropdown-item">
                                 <span class="nav-link">
-                                    <img src="http://via.placeholder.com/50x50" alt="" />
-                                    <b>Item name 1</b>
-                                    <button class="btn btn-sm btn-danger">x</button>
+                                    <span class="pull-left"><b>Item name 1</b></span>
+                                    <span class="pull-right"><button class="btn btn-sm btn-danger">x</button></span>
                                 </span>
                             </li>
                             <li class="dropdown-item">
                                 <span class="nav-link">
-                                    <img src="http://via.placeholder.com/50x50" alt="" />
-                                    <b>Item name 1</b>
-                                    <button class="btn btn-sm btn-danger">x</button>
+                                    <span class="pull-left"><b>Item name 2</b></span>
+                                    <span class="pull-right"><button class="btn btn-sm btn-danger">x</button></span>
                                 </span>
                             </li>
                             <div class="dropdown-divider"></div>
