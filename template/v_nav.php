@@ -29,18 +29,6 @@
                             <?php
                                 include("cart_item.php");
                             ?>
-                            <li class="dropdown-item">
-                                <span class="nav-link">
-                                    <span class="pull-left"><b>Item name 1</b></span>
-                                    <span class="pull-right"><button class="btn btn-sm btn-danger">x</button></span>
-                                </span>
-                            </li>
-                            <li class="dropdown-item">
-                                <span class="nav-link">
-                                    <span class="pull-left"><b>Item name 2</b></span>
-                                    <span class="pull-right"><button class="btn btn-sm btn-danger">x</button></span>
-                                </span>
-                            </li>
                             <div class="dropdown-divider"></div>
                             <li class="dropdown-item">
                                 <a href="shop-basket.html" class="nav-link text-center">View Cart</a>
