@@ -11,12 +11,14 @@ require("includes/common_helper.php");
 //    exit();
 //}else{
     $getact = htmlspecialchars($_GET["act"], ENT_QUOTES, 'UTF-8');
-    $sid = md5("Joko Sukoco Belanja");
+//    $sid = md5("Joko Sukoco Belanja");
+    $sid = empty($_SESSION['isSession']) ? "" : md5($_SESSION['vcName']." Belanja");
     
     // Cart Total
     if ($getact == "cart-total"){
         $query = "SELECT SUM(t.cart_qty) as qty_total FROM tmp_orders AS t "
-                . "RIGHT JOIN products AS p ON t.product_uniqid = p.product_uniqid";
+                . "RIGHT JOIN products AS p ON t.product_uniqid = p.product_uniqid "
+                . "WHERE t.cart_uniqid = '$sid'";
         if( $database->num_rows( $query ) > 0 )
         {
             list( $total ) = $database->get_row( $query );
