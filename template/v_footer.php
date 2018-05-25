@@ -26,6 +26,7 @@
     <script src="assets/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
     <script src="assets/vendor/jquery.scrollto/jquery.scrollTo.min.js"></script>
     <script src="assets/js/front.js"></script>
+    <script src="assets/js/custom.js"></script>
 		
 </body>
 </html>

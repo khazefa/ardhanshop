@@ -6,7 +6,7 @@
               <button type="button" data-toggle="collapse" data-target="#navigation" class="navbar-toggler btn-template-outlined"><span class="sr-only">Toggle navigation</span><i class="fa fa-align-justify"></i></button>
               <div id="navigation" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav ml-auto">
-                  <li class="nav-item active"><a href="<?php echo $baseurl; ?>">Home</a></li>
+                  <li class="nav-item"><a href="<?php echo $baseurl; ?>">Home</a></li>
                   <!-- ========== About Us dropdown ==================-->
                   <!--
                   <li class="nav-item dropdown"><a href="javascript: void(0)" data-toggle="dropdown" class="dropdown-toggle">About Us <b class="caret"></b></a>
@@ -23,18 +23,18 @@
                   <li class="nav-item"><a href="?page=kontak-kami">Kontak Kami</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item"><a href="?page=keranjang-belanja"><i class="fa fa-shopping-cart"></i> <span id="cart_total">0</span> - Items<b class="caret"></b></a></li>
+                    <!--
                     <li class="nav-item dropdown">
-                    <a href="javascript: void(0)" data-toggle="dropdown" class="dropdown-toggle"> <i class="fa fa-shopping-cart"></i> 7 - Items<b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <?php
-                                include("cart_item.php");
-                            ?>
+                        <a href="javascript: void(0)" data-toggle="dropdown" class="dropdown-toggle"> <i class="fa fa-shopping-cart"></i> <span id="cart_total">7</span> - Items<b class="caret"></b></a>
+                        <ul class="dropdown-menu" id="cart_items">
                             <div class="dropdown-divider"></div>
                             <li class="dropdown-item">
-                                <a href="shop-basket.html" class="nav-link text-center">View Cart</a>
+                                <a href="#" class="nav-link text-center">Keranjang Belanja</a>
                             </li>
                         </ul>
                     </li>
+                    -->
                 </ul>
               </div>
               <div id="search" class="collapse clearfix">

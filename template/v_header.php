@@ -96,10 +96,10 @@
             <div class="modal-body">
               <form role="form" method="POST" action="?page=do_auth">
                 <div class="form-group">
-                  <input name="femail" id="femail" type="text" placeholder="email" class="form-control">
+                  <input name="femail" id="femail_pop" type="text" placeholder="email" class="form-control">
                 </div>
                 <div class="form-group">
-                  <input name="fpassword" id="fpassword" type="password" placeholder="password" class="form-control">
+                  <input name="fpassword" id="fpassword_pop" type="password" placeholder="password" class="form-control">
                 </div>
                 <p class="text-center">
                   <button class="btn btn-template-outlined"><i class="fa fa-sign-in"></i> Log in</button>
