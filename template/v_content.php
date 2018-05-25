@@ -30,6 +30,7 @@
             'profil-akun'=>'modules/customers/page_enroll.php',
             'do_update_profile'=>'modules/customers/page_enroll.php',
             'do_update_password'=>'modules/customers/page_enroll.php',
+            'cart'=>'modules/customers/page_enroll.php',
             'home'=>'modules/home.php'
         );
     }else{
@@ -44,6 +45,7 @@
             'profil-akun'=>'modules/customers/page_profile.php',
             'do_update_profile'=>'modules/customers/do_profile.php',
             'do_update_password'=>'modules/customers/do_password.php',
+            'cart'=>'cart.php',
             'home'=>'modules/home.php'
         );
     }

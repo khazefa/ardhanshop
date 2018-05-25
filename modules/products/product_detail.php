@@ -1,5 +1,9 @@
 <?php
+    $getpage = htmlspecialchars($_GET["page"], ENT_QUOTES, 'UTF-8');
     $key = htmlspecialchars($_GET["q"], ENT_QUOTES, 'UTF-8');
+    $page = empty($_GET["q"]) ? "?" : $getpage."&q=".$key;
+    $do_act = "cart.php";
+    
     $query = "SELECT p.*, c.category_name, b.brand_name FROM products AS p "
             . "INNER JOIN products_category AS c ON p.category_id = c.category_id "
             . "INNER JOIN products_brand AS b ON p.brand_id = b.brand_id "
@@ -30,13 +34,15 @@
   </div>
 </div>
 
-<div id="productMain" class="row">
+<div id="productMainC" class="row">
   <div class="col-sm-6 text-center">
     <?php echo $pict_src;?>
   </div>
   <div class="col-sm-6">
     <div class="box">
-      <form>
+      <form action="<?php echo $do_act;?>?act=add" method="POST">
+        <input type="hidden" name="fid" value="<?php echo $funiqid?>" readonly="readonly">
+        <input type="hidden" name="furl" value="<?php echo $page;?>" readonly="readonly">
         <h3>Kategori: <?php echo '<a href="?page=kategori&seq='.$category_id.'">'.$category.'</a>'; ?></h3>
         <?php
             if($disc_state){
@@ -45,9 +51,12 @@
                 echo '<p class="price">Rp. '.$fprice.'</p>';
             }
         ?>
-        <p class="text-center">
+        <div class="col-md-3 mb-2">
+            <input type="number" name="fqty" class="form-control" value="1" required>
+        </div>
+        <div class="col-md-4 mb-2">
           <button type="submit" class="btn btn-template-outlined"><i class="fa fa-shopping-cart"></i> Beli</button>
-        </p>
+        </div>
       </form>
     </div>
   </div>
