@@ -35,7 +35,7 @@
 </div>
 
 <div id="productMainC" class="row">
-  <div class="col-sm-6 text-center">
+  <div class="col-sm-6 text-center mt-4">
     <?php echo $pict_src;?>
   </div>
   <div class="col-sm-6">
@@ -51,12 +51,19 @@
                 echo '<p class="price">Rp. '.$fprice.'</p>';
             }
         ?>
-        <div class="col-md-3 mb-2">
-            <input type="number" name="fqty" class="form-control" value="1" required>
-        </div>
-        <div class="col-md-4 mb-2">
-          <button type="submit" class="btn btn-template-outlined"><i class="fa fa-shopping-cart"></i> Beli</button>
-        </div>
+        
+        <?php
+            if($stock > 0){
+                echo '<div class="col-md-4 mb-2">';
+                    echo '<input type="number" name="fqty" class="form-control" value="1" required>';
+                echo '</div>';
+                echo '<div class="col-md-4 mb-2">';
+                    echo '<button type="submit" class="btn btn-template-outlined"><i class="fa fa-shopping-cart"></i> Beli</button>';
+                echo '</div>';
+            }else{
+                echo 'Stok Habis';
+            }
+        ?>
       </form>
     </div>
   </div>
