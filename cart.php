@@ -26,7 +26,7 @@ if (empty($_SESSION['isSession'])){
         $query = "SELECT 1 FROM tmp_orders "
                 . "WHERE product_uniqid='$funiqid' AND cart_uniqid='$fcartuniq'";
         if( $database->num_rows( $query ) < 1 )
-        {      
+        {
             $arrValue = array(
                 'product_uniqid' => $funiqid,
                 'cart_uniqid' => $fcartuniq,
@@ -67,21 +67,30 @@ if (empty($_SESSION['isSession'])){
         $fcartuniq = $sid;
         $fcarttime = $tgl_sekarang." ".$jam_sekarang;
         
-        $arrValue = array(
-            'cart_qty' => $fqty,
-            'cart_time' => $fcarttime
-        );
-        //Add the WHERE clauses
-        $arrWhere = array(
-            'cart_uniqid' => $fcartuniq,
-            'product_uniqid' => $funiqid
-        );
-        $updated = $database->update( 'tmp_orders', $arrValue, $arrWhere, 1 );
-        if( $updated )
-        {
+        $query = "SELECT product_stock FROM products WHERE product_uniqid = '$funiqid' ";
+        
+        list( $stock ) = $database->get_row( $query );
+        if($fqty > $stock){
             $url = $baseurl.'?page='.$furl;
-            echo "<script type='text/javascript'>window.location.href = '".$url."';</script>";
+            echo "<script type='text/javascript'>alert('Maaf stok tidak mencukupi');window.location.href = '".$url."';</script>";
             exit();
+        }else{
+            $arrValue = array(
+                'cart_qty' => $fqty,
+                'cart_time' => $fcarttime
+            );
+            //Add the WHERE clauses
+            $arrWhere = array(
+                'cart_uniqid' => $fcartuniq,
+                'product_uniqid' => $funiqid
+            );
+            $updated = $database->update( 'tmp_orders', $arrValue, $arrWhere, 1 );
+            if( $updated )
+            {
+                $url = $baseurl.'?page='.$furl;
+                echo "<script type='text/javascript'>window.location.href = '".$url."';</script>";
+                exit();
+            }
         }
     }
     // Delete to cart
