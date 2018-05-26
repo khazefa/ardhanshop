@@ -12,7 +12,7 @@ require("includes/common_helper.php");
 //}else{
     $getact = htmlspecialchars($_GET["act"], ENT_QUOTES, 'UTF-8');
 //    $sid = md5("Joko Sukoco Belanja");
-    $sid = empty($_SESSION['isSession']) ? "" : md5($_SESSION['vcMail']." Belanja");
+    $sid = empty($_SESSION['isSession']) ? "" : md5($_SESSION['vcMail'].md5(" Belanja"));
     
     // Cart Total
     if ($getact == "cart-total"){
@@ -45,6 +45,51 @@ require("includes/common_helper.php");
             $val_arr[] = $name;
         }
         echo json_encode($val_arr);  
+    }
+    // Retrieve Courier
+    elseif ($getact == "load-courier"){
+        $val_arr = array();
+        //get shipping list
+        $fcity = htmlspecialchars($_GET["fcity"], ENT_QUOTES, 'UTF-8');
+        $query = "SELECT s.shipping_id, s.shipping_courier FROM shipping AS s "
+                . "WHERE s.shipping_dest = '$fcity'";
+        if( $database->num_rows( $query ) > 0 )
+        {
+            $results = $database->get_results( $query );
+            foreach( $results as $row )
+            {
+                $r["shipp_id"] = (int)$row["shipping_id"];
+                $r["shipp_courier"] = nohtml($row["shipping_courier"]);
+                $val_arr[] = $r;
+            }
+        }else{
+            $val_arr = array();
+        }
+        
+        echo json_encode($val_arr);
+    }
+    // Shipping Total
+    elseif ($getact == "shipping-total"){
+        $val_arr = array();
+        //get shipping list
+        $fcourier = htmlspecialchars($_GET["fcourier"], ENT_QUOTES, 'UTF-8');
+        $fsubtotal = (int)$_GET["fsubtotal"];
+        $query = "SELECT shipping_cost FROM shipping "
+                . "WHERE shipping_id = '$fcourier'";
+        if( $database->num_rows( $query ) > 0 )
+        {
+            list( $cost ) = $database->get_row( $query );
+            $cost_rp = "Rp. ".format_IDR($cost);
+            $total = $fsubtotal + $cost;
+            $total_rp = "Rp. ".format_IDR($total);
+            
+            $val_arr = array('shipp_cost' => $cost, 'shipp_cost_rp' => $cost_rp, 
+                'orders_total' => $total, 'orders_total_rp' => $total_rp);
+        }else{
+            $val_arr = array();
+        }
+        
+        echo json_encode($val_arr);
     }
     else{
         $url = $baseurl;

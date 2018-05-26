@@ -32,6 +32,7 @@
             'do_update_password'=>'modules/customers/page_enroll.php',
             'cart'=>'modules/customers/page_enroll.php',
             'keranjang-belanja'=>'modules/customers/page_enroll.php',
+            'checkout'=>'modules/customers/page_enroll.php',
             'home'=>'modules/home.php'
         );
     }else{
@@ -48,6 +49,7 @@
             'do_update_password'=>'modules/customers/do_password.php',
             'cart'=>'cart.php',
             'keranjang-belanja'=>'modules/orders/page_shopping-cart.php',
+            'checkout'=>'modules/orders/page_checkout.php',
             'home'=>'modules/home.php'
         );
     }

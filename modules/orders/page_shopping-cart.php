@@ -14,7 +14,7 @@ if (empty($_SESSION['isSession'])){
     exit();
 }else{
     $getpage = htmlspecialchars($_GET["page"], ENT_QUOTES, 'UTF-8');
-    $sid = empty($_SESSION['isSession']) ? "" : md5($_SESSION['vcMail']." Belanja");
+    $sid = empty($_SESSION['isSession']) ? "" : md5($_SESSION['vcMail'].md5(" Belanja"));
     $query = "SELECT p.*, t.cart_id, t.cart_qty FROM products AS p "
         . "INNER JOIN tmp_orders AS t ON t.product_uniqid = p.product_uniqid "
         . "WHERE t.cart_uniqid = '$sid'";
@@ -94,7 +94,7 @@ if (empty($_SESSION['isSession'])){
             <div class="left-col"><a href="?page=produk" class="btn btn-secondary mt-0"><i class="fa fa-chevron-left"></i> Lanjutkan belanja</a></div>
             <div class="right-col">
                 <button type="submit" name="submit" class="btn btn-secondary"><i class="fa fa-refresh"></i> Update cart</button>
-                <button class="btn btn-template-outlined">Checkout <i class="fa fa-chevron-right"></i></button>
+                <button type="button" class="btn btn-template-outlined" onclick="window.location.href='?page=checkout'">Checkout <i class="fa fa-chevron-right"></i></button>
             </div>
           </div>
         </form>

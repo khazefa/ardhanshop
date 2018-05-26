@@ -4,6 +4,8 @@ $(document).ready(function(){
     // ------------------------------------------------------ //
     get_cart_total();
 //    get_cart_items();
+    load_courier();
+    calculate_shipping();
 });
 
 function get_cart_total() {
@@ -56,5 +58,59 @@ function get_cart_items() {
             // Handle errors here
             console.log('ERRORS: ' + textStatus + ' - ' + errorThrown );
         }
+    });
+}
+
+function load_courier() {
+    $('#fcity_checkout').change(function () {
+        var fcity = $(this).val();
+//        alert("hello "+fcity);
+
+        $.ajax({
+            url:"cart_item.php?act=load-courier&fcity="+fcity,
+            type:"GET",
+            dataType:"json",
+            success:function(response, data)
+            {
+                var $courier = $('#fcourier_checkout');
+//                $courier.empty();
+                for (var i = 0; i < response.length; i++) {
+                    $courier.append('<option value=' + response[i].shipp_id + '>' + response[i].shipp_courier + '</option>');
+                }
+
+                //manually trigger a change event for the courier so that the change handler will get triggered
+                $courier.change();
+            },
+            cache: false,
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Handle errors here
+                console.log('ERRORS: ' + textStatus + ' - ' + errorThrown );
+            }
+        });
+    });
+}
+
+function calculate_shipping() {
+    $('#fcourier_checkout').change(function () {
+        var fcourier = $(this).val();
+        var fsubtotal = $("#fsubtotal_checkout").val();
+
+        $.ajax({
+            url:"cart_item.php?act=shipping-total&fcourier="+fcourier+"&fsubtotal="+fsubtotal,
+            type:"GET",
+            dataType:"json",
+            success:function(response, data)
+            {
+                $('#fshipping_cost').val(response.shipp_cost);
+                $('#forders_total').val(response.orders_total);
+                $('#fshipping_cost_html').html(response.shipp_cost_rp);
+                $('#forders_total_html').html(response.orders_total_rp);
+            },
+            cache: false,
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Handle errors here
+                console.log('ERRORS: ' + textStatus + ' - ' + errorThrown );
+            }
+        });
     });
 }

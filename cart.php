@@ -13,7 +13,7 @@ if (empty($_SESSION['isSession'])){
 }else{
 //    $getpage = htmlspecialchars($_GET["page"], ENT_QUOTES, 'UTF-8');
     $getact = htmlspecialchars($_GET["act"], ENT_QUOTES, 'UTF-8');
-    $sid = empty($_SESSION['isSession']) ? "" : md5($_SESSION['vcMail']." Belanja");
+    $sid = empty($_SESSION['isSession']) ? "" : md5($_SESSION['vcMail'].md5(" Belanja"));
     $furl = isset($_POST["furl"]) ? filter_var($_POST['furl'], FILTER_SANITIZE_STRING) : null;
     
     // Add to cart

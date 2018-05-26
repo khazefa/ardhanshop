@@ -17,6 +17,7 @@
     </div>
   </div>
 </div>
+<hr>
 <p class="lead">
     <?php echo $fcontent; ?>
 </p>

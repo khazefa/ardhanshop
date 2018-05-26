@@ -11,6 +11,7 @@
     </div>
   </div>
 </div>
+<hr>
 <p class="lead">Untuk menjawab pertanyaan Anda lebih baik, Customer service kami akan dengan senang hati membantu anda menemukan produk ban murah.</p>
 <section class="bar pt-0">
   <div class="row">
