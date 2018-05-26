@@ -13,7 +13,7 @@ if (empty($_SESSION['isSession'])){
 }else{
 //    $getpage = htmlspecialchars($_GET["page"], ENT_QUOTES, 'UTF-8');
     $getact = htmlspecialchars($_GET["act"], ENT_QUOTES, 'UTF-8');
-    $sid = empty($_SESSION['isSession']) ? "" : md5($_SESSION['vcName']." Belanja");
+    $sid = empty($_SESSION['isSession']) ? "" : md5($_SESSION['vcMail']." Belanja");
     $furl = isset($_POST["furl"]) ? filter_var($_POST['furl'], FILTER_SANITIZE_STRING) : null;
     
     // Add to cart
@@ -21,7 +21,7 @@ if (empty($_SESSION['isSession'])){
         $funiqid = isset($_POST["fid"]) ? filter_var($_POST['fid'], FILTER_SANITIZE_STRING) : null;
         $fqty = isset($_POST["fqty"]) ? filter_var($_POST['fqty'], FILTER_SANITIZE_NUMBER_INT) : 0;
         $fcartuniq = $sid;
-        $fcarttime = $tgl_sekarang." ".$jam_sekarang;
+        $fcarttime = date("Y-m-d H:i:s");
         
         $query = "SELECT 1 FROM tmp_orders "
                 . "WHERE product_uniqid='$funiqid' AND cart_uniqid='$fcartuniq'";
@@ -65,7 +65,7 @@ if (empty($_SESSION['isSession'])){
         $funiqid = isset($_POST["fid"]) ? filter_var($_POST['fid'], FILTER_SANITIZE_STRING) : null;
         $fqty = isset($_POST["fqty"]) ? filter_var($_POST['fqty'], FILTER_SANITIZE_NUMBER_INT) : 0;
         $fcartuniq = $sid;
-        $fcarttime = $tgl_sekarang." ".$jam_sekarang;
+        $fcarttime = date("Y-m-d H:i:s");
         
         $query = "SELECT product_stock FROM products WHERE product_uniqid = '$funiqid' ";
         
@@ -93,24 +93,66 @@ if (empty($_SESSION['isSession'])){
             }
         }
     }
+    // Update to cart item
+    elseif ($getact == "update-all"){
+        $fid = $_POST["fid"];
+        $fuid = $_POST["fuid"];
+        $fqty = $_POST["fqty"];
+        $fcartuniq = $sid;
+        $fcarttime = date("Y-m-d H:i:s");
+        
+        $count = count($fid);
+//        var_dump($count);exit();
+        for ($i=0; $i <= $count; $i++){
+            $query = "SELECT product_stock FROM products WHERE product_uniqid = '$fuid[$i]' ";
+
+            list( $stock ) = $database->get_row( $query );
+            
+            if($fqty[$i] > $stock){
+                $url = $baseurl.'?page='.$furl;
+                echo "<script type='text/javascript'>alert('Maaf stok tidak mencukupi');window.location.href = '".$url."';</script>";
+            }elseif($fqty[$i] == 0){
+                $url = $baseurl.'?page='.$furl;
+                echo "<script type='text/javascript'>alert('Anda tidak boleh menginputkan angka 0 atau mengkosongkannya!');window.location.href = '".$url."';</script>";
+            }else{
+                $arrValue = array(
+                    'cart_qty' => $fqty[$i]
+                );
+                //Add the WHERE clauses
+                $arrWhere = array(
+                    'cart_id' => $fid[$i]
+                );
+                $updated = $database->update( 'tmp_orders', $arrValue, $arrWhere, $count );
+                if( $updated )
+                {
+                    $url = $baseurl.'?page='.$furl;
+                    echo "<script type='text/javascript'>window.location.href = '".$url."';</script>";
+                }
+            }
+        }
+    }
     // Delete to cart
     elseif ($getact == "delete"){
-        $funiqid = htmlspecialchars($_GET["key"], ENT_QUOTES, 'UTF-8');
+        $fid = htmlspecialchars($_GET["key"], ENT_QUOTES, 'UTF-8');
         $fcartuniq = $sid;
         
         //Add the WHERE clauses
-        $arrWhere = array(
-            'cart_uniqid' => $fcartuniq,
-            'product_uniqid' => $funiqid
+        $where_clause = array(
+            'cart_id' => $fid
         );
         //Query delete
         $deleted = $database->delete( 'tmp_orders', $where_clause);
         if( $deleted )
         {
-            $url = $baseurl.'?page='.$furl;
+            $url = $baseurl.'?page=keranjang-belanja';
             echo "<script type='text/javascript'>window.location.href = '".$url."';</script>";
             exit();
         }
+    }
+    else{
+        $url = $baseurl;
+        echo "<script type='text/javascript'>window.location.href = '".$url."';</script>";
+        exit();
     }
 }
 ?>

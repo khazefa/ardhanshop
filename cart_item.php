@@ -12,7 +12,7 @@ require("includes/common_helper.php");
 //}else{
     $getact = htmlspecialchars($_GET["act"], ENT_QUOTES, 'UTF-8');
 //    $sid = md5("Joko Sukoco Belanja");
-    $sid = empty($_SESSION['isSession']) ? "" : md5($_SESSION['vcName']." Belanja");
+    $sid = empty($_SESSION['isSession']) ? "" : md5($_SESSION['vcMail']." Belanja");
     
     // Cart Total
     if ($getact == "cart-total"){
@@ -31,7 +31,7 @@ require("includes/common_helper.php");
         echo json_encode($val_arr);
     }
     // Cart Items
-    if ($getact == "cart-items"){
+    elseif ($getact == "cart-items"){
         $val_arr = array();
         $query_list = "SELECT t.product_uniqid, p.product_name FROM products AS p "
                 . "INNER JOIN tmp_orders AS t ON p.product_uniqid = t.product_uniqid "
@@ -45,6 +45,11 @@ require("includes/common_helper.php");
             $val_arr[] = $name;
         }
         echo json_encode($val_arr);  
+    }
+    else{
+        $url = $baseurl;
+        echo "<script type='text/javascript'>window.location.href = '".$url."';</script>";
+        exit();
     }
 //}
 ?>
