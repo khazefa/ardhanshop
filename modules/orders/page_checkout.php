@@ -125,7 +125,7 @@ if (empty($_SESSION['isSession'])){
       <div class="col-sm-12 col-md-6">
         <div class="form-group">
           <label for="fcity_checkout">Kota Tujuan</label>
-          <select name="fcity_checkout" id="fcity_checkout" class="form-control">
+          <select name="fcity_checkout" id="fcity_checkout" class="form-control" required="required">
               <option value="0" selected>--</option>
               <?php
                 foreach ($destinations AS $d){
@@ -138,7 +138,7 @@ if (empty($_SESSION['isSession'])){
       <div class="col-sm-8 col-md-4">
         <div class="form-group">
           <label for="fcourier_checkout">Kurir</label>
-          <select name="fcourier_checkout" id="fcourier_checkout" class="form-control">
+          <select name="fcourier_checkout" id="fcourier_checkout" class="form-control" required="required">
               <option value="0" selected>--</option>
           </select>
         </div>
@@ -199,9 +199,6 @@ if (empty($_SESSION['isSession'])){
 
 
 </div>
-
-
-
 <?php
     }else{
         echo '<div class="col-lg-12">';
