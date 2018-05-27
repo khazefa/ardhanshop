@@ -21,5 +21,5 @@ define('INFO_EMAIL','info@domain.com');
 
 /** WEB INFO **/
 define('WEB_DESC','web application to complete final exam task');
-define('WEB_TITLE','Ardhan Shop - Toko Ban Online');
+define('WEB_TITLE','Ardhanshop - Toko Ban Online');
 ?>
