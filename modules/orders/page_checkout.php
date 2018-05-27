@@ -22,16 +22,19 @@ if (empty($_SESSION['isSession'])){
     $couriers = array();
     $destinations = array();
         
-    $query = "SELECT p.product_price, p.product_disc, t.cart_qty FROM products AS p "
+    $query = "SELECT p.product_price, p.product_disc, p.product_weight, t.cart_qty FROM products AS p "
         . "INNER JOIN tmp_orders AS t ON t.product_uniqid = p.product_uniqid "
         . "WHERE t.cart_uniqid = '$sid'";
     if( $database->num_rows( $query ) > 0 )
     {
         $results = $database->get_results( $query );
         $total = 0;
+        $total_weight = 0;
+        $total_qty = 0;
         foreach( $results as $row )
         {
             $fqty = (int) $row["cart_qty"];
+            $total_qty = $total_qty + $fqty;
 
             $price = $row["product_price"];
             $fprice = format_IDR($row["product_price"]);
@@ -41,7 +44,9 @@ if (empty($_SESSION['isSession'])){
             $discount = ((int)$disc/100)*$price;
             $fdiscount = format_IDR($discount);
             $disc_price = format_IDR(($price-$discount));
-
+            $weight = $row["product_weight"];
+            $total_weight = ($total_weight + $weight) * $fqty;
+            
             $subtotal = $fqty * ($price-$discount);
             $fsubtotal = format_IDR($subtotal);
             $total = $total + $subtotal;
@@ -75,6 +80,12 @@ if (empty($_SESSION['isSession'])){
     <div class="col-lg-8">
     <form method="POST" action="?page=do_save_checkout">
     <input type="hidden" name="furl" value="<?php echo $getpage;?>" readonly>
+    <input type="hidden" name="fqty_checkout" id="fqty_checkout" value="<?php echo $total_qty;?>" readonly>
+    <input type="hidden" name="fsubtotal_checkout" id="fsubtotal_checkout" value="<?php echo $total;?>" readonly>
+    <input type="hidden" name="fweight_checkout" id="fweight_checkout" value="<?php echo $total_weight;?>" readonly>
+    <input type="hidden" name="fshipping_cost" id="fshipping_cost">
+    <input type="hidden" name="forders_total" id="forders_total">
+    
     <div class="heading">
       <h3 class="text-muted">Alamat Tujuan Pengiriman</h3>
     </div>
@@ -152,16 +163,24 @@ if (empty($_SESSION['isSession'])){
           <table class="table">
             <tbody>
               <tr>
+                <td>Total Jumlah</td>
+                <th><?php echo $total_qty; ?> Items</th>
+              </tr>
+              <tr>
                 <td>Subtotal</td>
-                <th><input type="hidden" name="fsubtotal_checkout" id="fsubtotal_checkout" value="<?php echo $total;?>">Rp. <?php echo $ftotal; ?></th>
+                <th>Rp. <?php echo $ftotal; ?></th>
+              </tr>
+              <tr>
+                <td>Total Berat</td>
+                <th><?php echo $total_weight; ?> Kg</th>
               </tr>
               <tr>
                 <td>Ongkos Kirim</td>
-                <th><input type="hidden" name="fshipping_cost" id="fshipping_cost"><span id="fshipping_cost_html">Rp. 0</span></th>
+                <th><span id="fshipping_cost_html">Rp. 0</span></th>
               </tr>
               <tr class="total">
                 <td>Total</td>
-                <th><input type="hidden" name="forders_total" id="forders_total"><span id="forders_total_html">Rp. 0</span></th>
+                <th><span id="forders_total_html">Rp. 0</span></th>
               </tr>
             </tbody>
           </table>
