@@ -11,18 +11,19 @@
     }
 
     $page_files = array( 
-                    'items'=>'modules/products/v_list.php',
-                    'items-cat'=>'modules/products-cat/v_list.php',
-                    'items-brand'=>'modules/products-brand/v_list.php',
-                    'customer-list'=>'modules/customers/v_list.php',
-                    'customer-orders'=>'modules/orders/v_list.php',
-                    'payment-list'=>'modules/payments/v_list.php',
-                    'bank-acc'=>'modules/bank-accounts/v_list.php',
-                    'courier-list'=>'modules/courier/v_list.php',
-                    'list-pages'=>'modules/pages/v_list.php',
-                    'user-list'=>'modules/users/v_list.php',
-                    'dashboard'=>'modules/dashboard.php'
-                );
+        'items'=>'modules/products/v_list.php',
+        'items-cat'=>'modules/products-cat/v_list.php',
+        'items-brand'=>'modules/products-brand/v_list.php',
+        'customer-list'=>'modules/customers/v_list.php',
+        'customer-orders'=>'modules/orders/v_list.php',
+        'payment-list'=>'modules/payments/v_list.php',
+        'bank-acc'=>'modules/bank-accounts/v_list.php',
+        'courier-list'=>'modules/courier/v_list.php',
+        'list-pages'=>'modules/pages/v_list.php',
+        'list-banner'=>'modules/banner/v_list.php',
+        'user-list'=>'modules/users/v_list.php',
+        'dashboard'=>'modules/dashboard.php'
+    );
 
     if (in_array($_GET['page'],array_keys($page_files))) {
         include $page_files[$_GET['page']];

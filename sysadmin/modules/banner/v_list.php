@@ -1,8 +1,8 @@
 <?php
-$pagetitle = "All Items";
-$act = "modules/products/do_task.php";
+$pagetitle = "Site Banner";
+$act = "modules/banner/do_task.php";
 
-$getpage = "items";
+$getpage = "list-banner";
 $getact = htmlspecialchars($_GET["act"], ENT_QUOTES, 'UTF-8');
 ?>
 <div class="row">
@@ -36,36 +36,26 @@ switch($getact){
                     <thead>
                         <tr>
                             <th>Actions</th>
-                            <th>Item Name</th>
-                            <th>Category Name</th>
-                            <th>Brand Name</th>
-                            <th>Item Price</th>
-                            <th>Item Stock</th>
-                            <th>Item Pict</th>
+                            <th>Banner Pict</th>
+                            <th>Banner Title</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                            $query = "SELECT p.*, c.category_name, b.brand_name FROM products AS p "
-                                    . "INNER JOIN products_category AS c ON p.category_id = c.category_id "
-                                    . "INNER JOIN products_brand AS b ON p.brand_id = b.brand_id ";
+                            $query = "SELECT * FROM banner ORDER BY banner_id DESC ";
                             $results = $database->get_results( $query );
                             $no = 1;
                             foreach( $results as $row )
                             {
-                                $img_path = "../" . UPLOADS_DIR . "products" . DIRECTORY_SEPARATOR;
-                                $pict = !empty($row[product_pict]) ? "<img class='img-responsive' src='$img_path$row[product_pict]' width='100px'>" : "NO IMAGE";
+                                $img_path = "../" . UPLOADS_DIR . "images" . DIRECTORY_SEPARATOR;
+                                $pict = !empty($row[banner_pict]) ? "<img class='img-responsive' src='$img_path$row[banner_pict]' width='300px'>" : "NO IMAGE";
                                 echo "<tr>";
                                     echo "<td>
-                                            <a href='?page=$getpage&act=edit&key=$row[product_uniqid]'><i class='fa fa-edit'></i> Edit</a> | 
-                                            <a href='$act?page=$getpage&act=delete&key=$row[product_uniqid]'><i class='fa fa-trash'></i> Delete</a>
+                                            <a href='?page=$getpage&act=edit&key=$row[banner_id]'><i class='fa fa-edit'></i> Edit</a> | 
+                                            <a href='$act?page=$getpage&act=delete&key=$row[banner_id]'><i class='fa fa-trash'></i> Delete</a>
                                         </td>";
-                                    echo "<td>$row[product_name]</td>";
-                                    echo "<td>$row[category_name]</td>";
-                                    echo "<td>$row[brand_name]</td>";
-                                    echo "<td>Rp. ". format_IDR($row[product_price])."</td>";
-                                    echo "<td>$row[product_stock]</td>";
                                     echo "<td class='text-center'>$pict</td>";
+                                    echo "<td>$row[banner_title]</td>";
                                 echo "</tr>";
                                 $no++;
                             }
@@ -90,75 +80,25 @@ case "add":
             <div class="panel-body">
                 <form role="form" class="form-horizontal" method="POST" action="<?php echo $act.'?page='.$getpage;?>&act=save" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Category Name</label>
+                        <label class="col-sm-2 control-label">Banner Title</label>
                         <div class="col-sm-6">
-                            <select name="fcategory" class="form-control" id="fcategory">
-                                <?php
-                                    $query = "SELECT * FROM products_category ORDER BY category_name";
-                                    $results = $database->get_results( $query );
-                                    foreach( $results as $row )
-                                    {
-                                        echo "<option value='$row[category_id]'>$row[category_name]</option>";
-                                    }
-                                ?>
-                                
-                            </select>
+                            <input type="text" name="fname" class="form-control" id="fname" placeholder="Banner Title" required="true">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Brand Name</label>
-                        <div class="col-sm-6">
-                            <select name="fbrand" class="form-control" id="fbrand">
-                                <?php
-                                    $query = "SELECT * FROM products_brand ORDER BY brand_name";
-                                    $results = $database->get_results( $query );
-                                    foreach( $results as $row )
-                                    {
-                                        echo "<option value='$row[brand_id]'>$row[brand_name]</option>";
-                                    }
-                                ?>
-                                
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Item Name</label>
-                        <div class="col-sm-6">
-                            <input type="text" name="fname" class="form-control" id="fname" placeholder="Item Name" required="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Item Description</label>
+                        <label class="col-sm-2 control-label">Banner Description</label>
                         <div class="col-sm-8">
                             <textarea name="fdesc" class="form-control summernote" id="fdesc"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Item Price</label>
+                        <label class="col-sm-2 control-label">Banner Position</label>
                         <div class="col-sm-6">
-                            <input type="text" name="fprice" class="form-control" id="fprice" placeholder="Item Price" required="true">
+                            <input type="text" name="fposition" class="form-control" id="fposition" placeholder="Banner Position">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Item Discount</label>
-                        <div class="col-sm-6">
-                            <input type="number" name="fdisc" class="form-control" id="fdisc" placeholder="Item Discount">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Item Stock</label>
-                        <div class="col-sm-6">
-                            <input type="number" name="fstock" class="form-control" id="fstock" placeholder="Item Stock">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Item Weight (Kg)</label>
-                        <div class="col-sm-6">
-                            <input type="number" name="fweight" class="form-control" id="fweight" placeholder="Item Weight">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Item Picture</label>
+                        <label class="col-sm-2 control-label">Banner Picture</label>
                         <div class="col-sm-6">
                             <input type="file" name="fupload" class="form-control" id="fupload" accept="image/x-png,image/jpeg">
                         </div>
@@ -178,12 +118,12 @@ break;
 
 case "edit";
 $key = htmlspecialchars($_GET["key"], ENT_QUOTES, 'UTF-8');
-$query = "SELECT * FROM products WHERE product_uniqid = '$key' ";
+$query = "SELECT * FROM banner WHERE banner_id = '$key' ";
 if( $database->num_rows( $query ) > 0 )
 {
-    list( $id, $key, $category, $brand, $name, $desc, $price, $stock, $weight, $disc, $pict ) = $database->get_row( $query );
+    list( $id, $name, $desc, $pict, $position ) = $database->get_row( $query );
     
-    $img_path = "../" . UPLOADS_DIR . "products" . DIRECTORY_SEPARATOR;
+    $img_path = "../" . UPLOADS_DIR . "images" . DIRECTORY_SEPARATOR;
     $img = !empty($pict) ? "<img class='img-responsive' src='$img_path$pict'>" : "NO IMAGE";
 ?>
 <div class="row">
@@ -196,81 +136,21 @@ if( $database->num_rows( $query ) > 0 )
                 <form role="form" class="form-horizontal" method="POST" action="<?php echo $act.'?page='.$getpage;?>&act=update" enctype="multipart/form-data">
                 <input type="hidden" name="fkey" value="<?php echo $key;?>" readonly>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Category Name</label>
-                        <div class="col-sm-6">
-                            <select name="fcategory" class="form-control" id="fcategory">
-                                <?php
-                                    $query = "SELECT * FROM products_category ORDER BY category_name";
-                                    $results = $database->get_results( $query );
-                                    foreach( $results as $row )
-                                    {
-                                        if($row[category_id] == $category){
-                                            echo "<option value='$row[category_id]' selected>$row[category_name]</option>";
-                                        }else{
-                                            echo "<option value='$row[category_id]'>$row[category_name]</option>";
-                                        }
-                                        
-                                    }
-                                ?>
-                                
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label class="col-sm-2 control-label">Brand Name</label>
-                        <div class="col-sm-6">
-                            <select name="fbrand" class="form-control" id="fbrand">
-                                <?php
-                                    $query = "SELECT * FROM products_brand ORDER BY brand_name";
-                                    $results = $database->get_results( $query );
-                                    foreach( $results as $row )
-                                    {
-                                        if($row[brand_id] == $brand){
-                                            echo "<option value='$row[brand_id]' selected>$row[brand_name]</option>";
-                                        }else{
-                                            echo "<option value='$row[brand_id]'>$row[brand_name]</option>";
-                                        }
-                                        
-                                    }
-                                ?>
-                                
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Item Name</label>
                         <div class="col-sm-6">
                             <input type="text" name="fname" class="form-control" id="fname" value="<?php echo $name;?>" required="true">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Item Description</label>
+                        <label class="col-sm-2 control-label">Brand Description</label>
                         <div class="col-sm-8">
                             <textarea name="fdesc" class="form-control summernote" id="fdesc"><?php echo $desc;?></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Item Price</label>
+                        <label class="col-sm-2 control-label">Brand Position</label>
                         <div class="col-sm-6">
-                            <input type="text" name="fprice" class="form-control" id="fprice" value="<?php echo $price;?>" required="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Item Discount</label>
-                        <div class="col-sm-6">
-                            <input type="number" name="fdisc" class="form-control" id="fdisc" value="<?php echo $disc;?>">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Item Stock</label>
-                        <div class="col-sm-6">
-                            <input type="number" name="fstock" class="form-control" id="fstock" value="<?php echo $stock;?>">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Item Weight (Kg)</label>
-                        <div class="col-sm-6">
-                            <input type="number" name="fweight" class="form-control" id="fweight" value="<?php echo $weight;?>">
+                            <input type="text" name="fposition" class="form-control" id="fposition" value="<?php echo $position;?>">
                         </div>
                     </div>
                     <div class="form-group">

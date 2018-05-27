@@ -17,110 +17,83 @@ if(!isset($isLoggedIn) || $isLoggedIn != TRUE){
     $getact = htmlspecialchars($_GET["act"], ENT_QUOTES, 'UTF-8');
 
     // Save data
-    if ($getpage == "items" AND $getact == "save"){
+    if ($getpage == "list-banner" AND $getact == "save"){
         $random = rand(000000,999999);
-        $funiqid = strtoupper(generateRandomString());
-        $fcategory = isset($_POST["fcategory"]) ? filter_var($_POST['fcategory'], FILTER_SANITIZE_NUMBER_INT) : 0;
-        $fbrand = isset($_POST["fbrand"]) ? filter_var($_POST['fbrand'], FILTER_SANITIZE_NUMBER_INT) : 0;
         $fname = isset($_POST["fname"]) ? filter_var($_POST['fname'], FILTER_SANITIZE_STRING) : null;
 //        $fdesc = isset($_POST["fdesc"]) ? filter_var($_POST['fdesc'], FILTER_SANITIZE_STRING) : null;
         $fdesc = isset($_POST["fdesc"]) ? $_POST['fdesc'] : null;
-        $fprice = isset($_POST["fprice"]) ? filter_var($_POST['fprice'], FILTER_SANITIZE_NUMBER_INT) : 0;
-        $fdisc = isset($_POST["fdisc"]) ? filter_var($_POST['fdisc'], FILTER_SANITIZE_NUMBER_INT) : 0;
-        $fstock = isset($_POST["fstock"]) ? filter_var($_POST['fstock'], FILTER_SANITIZE_NUMBER_INT) : 0;
+        $fposition = isset($_POST["fposition"]) ? filter_var($_POST['fposition'], FILTER_SANITIZE_STRING) : null;
         $fupload = $_FILES['fupload'];
         
         $arrValue = array();
         
         if(empty($fupload['tmp_name'])){
             $arrValue = array(
-                'product_uniqid' => $funiqid,
-                'category_id' => $fcategory,
-                'brand_id' => $fbrand,
-                'product_name' => $fname,
-                'product_desc' => $fdesc,
-                'product_price' => $fprice,
-                'product_stock' => $fstock,
-                'product_disc' => $fdisc
+                'banner_title' => $fname,
+                'banner_desc' => $fdesc,
+                'banner_position' => $fposition
             );
         }else{
-            uploadFile($fupload, $random, "products");
+            uploadFile($fupload, $random, "images");
             $arrValue = array(
-                'product_uniqid' => $funiqid,
-                'category_id' => $fcategory,
-                'brand_id' => $fbrand,
-                'product_name' => $fname,
-                'product_desc' => $fdesc,
-                'product_price' => $fprice,
-                'product_stock' => $fstock,
-                'product_disc' => $fdisc,
-                'product_pict' => $random.$fupload['name']
+                'banner_title' => $fname,
+                'banner_desc' => $fdesc,
+                'banner_position' => $fposition,
+                'banner_pict' => $random.$fupload['name']
             );
         }
 
-        $add_query = $database->insert( 'products', $arrValue );
+        $add_query = $database->insert( 'banner', $arrValue );
         if( $add_query )
         {
             header('location:../../?page='.$getpage);
         }
     }
     // Update data
-    elseif ($getpage == "items" AND $getact == "update"){
+    elseif ($getpage == "list-banner" AND $getact == "update"){
         $random = rand(000000,999999);
         $fkey = isset($_POST["fkey"]) ? filter_var($_POST['fkey'], FILTER_SANITIZE_STRING) : null;
-        $fcategory = isset($_POST["fcategory"]) ? filter_var($_POST['fcategory'], FILTER_SANITIZE_NUMBER_INT) : 0;
-        $fbrand = isset($_POST["fbrand"]) ? filter_var($_POST['fbrand'], FILTER_SANITIZE_NUMBER_INT) : 0;
         $fname = isset($_POST["fname"]) ? filter_var($_POST['fname'], FILTER_SANITIZE_STRING) : null;
 //        $fdesc = isset($_POST["fdesc"]) ? filter_var($_POST['fdesc'], FILTER_SANITIZE_STRING) : null;
         $fdesc = isset($_POST["fdesc"]) ? $_POST['fdesc'] : null;
-        $fprice = isset($_POST["fprice"]) ? filter_var($_POST['fprice'], FILTER_SANITIZE_NUMBER_INT) : 0;
-        $fdisc = isset($_POST["fdisc"]) ? filter_var($_POST['fdisc'], FILTER_SANITIZE_NUMBER_INT) : 0;
-        $fstock = isset($_POST["fstock"]) ? filter_var($_POST['fstock'], FILTER_SANITIZE_NUMBER_INT) : 0;
+        $fposition = isset($_POST["fposition"]) ? filter_var($_POST['fposition'], FILTER_SANITIZE_STRING) : null;
         $fupload = $_FILES['fupload'];
         
         $arrValue = array();
         
         if(empty($fupload['tmp_name'])){
             $arrValue = array(
-                'category_id' => $fcategory,
-                'brand_id' => $fbrand,
-                'product_name' => $fname,
-                'product_desc' => $fdesc,
-                'product_price' => $fprice,
-                'product_stock' => $fstock,
-                'product_disc' => $fdisc
+                'banner_title' => $fname,
+                'banner_desc' => $fdesc,
+                'banner_position' => $fposition
             );
         }else{
-            uploadFile($fupload, $random, "products");
+            uploadFile($fupload, $random, "images");
             $arrValue = array(
-                'category_id' => $fcategory,
-                'brand_id' => $fbrand,
-                'product_name' => $fname,
-                'product_desc' => $fdesc,
-                'product_price' => $fprice,
-                'product_stock' => $fstock,
-                'product_disc' => $fdisc,
-                'product_pict' => $random.$fupload['name']
+                'banner_title' => $fname,
+                'banner_desc' => $fdesc,
+                'banner_position' => $fposition,
+                'banner_pict' => $random.$fupload['name']
             );
         }
         
         //Add the WHERE clauses
         $arrWhere = array(
-            'product_uniqid' => $fkey
+            'banner_id' => $fkey
         );
-        $updated = $database->update( 'products', $arrValue, $arrWhere, 1 );
+        $updated = $database->update( 'banner', $arrValue, $arrWhere, 1 );
         if( $updated )
         {
             header('location:../../?page='.$getpage);
         }
     }
     // Delete data
-    elseif ($getpage == "items" AND $getact == "delete"){
+    elseif ($getpage == "list-banner" AND $getact == "delete"){
         $key = htmlspecialchars($_GET["key"], ENT_QUOTES, 'UTF-8');
-        $query = "SELECT product_pict FROM products WHERE product_uniqid = '$key' ";
+        $query = "SELECT banner_pict FROM banner WHERE banner_id = '$key' ";
         //Add the WHERE clauses
         $where_clause = array(
-            'product_uniqid' => $key
+            'banner_id' => $key
         );
         if( $database->num_rows( $query ) > 0 )
         {
@@ -128,16 +101,16 @@ if(!isset($isLoggedIn) || $isLoggedIn != TRUE){
         }
         if (!empty($pict)){
             //Query delete
-            $deleted = $database->delete( 'products', $where_clause);
+            $deleted = $database->delete( 'banner', $where_clause);
             if( $deleted )
             {
-                unlink("../../../uploads/products/$pict");
+                unlink("../../../uploads/images/$pict");
             }
              
         }
         else{
             //Query delete
-            $deleted = $database->delete( 'products', $where_clause);
+            $deleted = $database->delete( 'banner', $where_clause);
         }
         header('location:../../?page='.$getpage);
     }
