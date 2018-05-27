@@ -11,6 +11,13 @@
   </div>
 </div>
 <hr>
+<?php
+if (empty($_SESSION['isSession'])){
+    $url = $baseurl.'?page=enroll';
+    echo "<script type='text/javascript'>alert('Harap login terlebih dahulu!');window.location.href = '".$url."';</script>";
+    exit();
+}else{
+?>
 <div id="customer-orders" class="col-md-12">
   <p class="text-muted lead">Riwayat transaksi Anda.</p>
   <div class="box mt-0 mb-lg-0">
@@ -28,8 +35,8 @@
         <tbody>
         <?php
             //select orders from last 7 days
-//            $query = "SELECT * FROM orders WHERE order_date >= DATE(NOW()) - INTERVAL 7 DAY ORDER BY order_date DESC";
-            $query = "SELECT * FROM orders ORDER BY order_date DESC";
+            $query = "SELECT * FROM orders WHERE order_date >= DATE(NOW()) - INTERVAL 7 DAY ORDER BY order_date DESC";
+//            $query = "SELECT * FROM orders ORDER BY order_date DESC";
             $results = $database->get_results( $query );
             foreach( $results as $row )
             {
@@ -51,3 +58,6 @@
     </div>
   </div>
 </div>
+<?php
+}
+?>

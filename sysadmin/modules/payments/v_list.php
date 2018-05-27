@@ -84,8 +84,8 @@ $query = "SELECT payment_id, order_uniqid, payment_account, payment_name, paymen
 if( $database->num_rows( $query ) > 0 )
 {
     list( $id, $orderid, $payacc, $payname, $paydate, $paybank, $payattach, $paystatus ) = $database->get_row( $query );
-    $img_path = "../" . UPLOADS_DIR . "tmp" . DIRECTORY_SEPARATOR;
-    $pict = !empty($payattach) ? "<img class='img-responsive' src='$img_path$payattach' width='100px'>" : "NO IMAGE";
+    $img_path = "../" . UPLOADS_DIR . "receipt" . DIRECTORY_SEPARATOR;
+    $pict = !empty($payattach) ? "<img class='img-responsive' src='$img_path$payattach'>" : "NO IMAGE";
 ?>
 <div class="row">
     <div class="col-lg-12">

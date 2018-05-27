@@ -18,7 +18,7 @@ if (empty($_SESSION['isSession'])){
     $fname = isset($_POST["fname"]) ? filter_var($_POST['fname'], FILTER_SANITIZE_STRING) : null;
     $faccount = isset($_POST["faccount"]) ? filter_var($_POST['faccount'], FILTER_SANITIZE_STRING) : null;
     $fbank_name = isset($_POST["fbank_name"]) ? filter_var($_POST['fbank_name'], FILTER_SANITIZE_STRING) : null;
-    $date = isset($_POST["fdate"]) ? filter_var($_POST['fdate'], FILTER_SANITIZE_STRING) : "01/01/1900";
+    $date = isset($_POST["fdate"]) ? filter_var($_POST['fdate'], FILTER_SANITIZE_STRING) : "1900-01-01";
     $getdate = explode("/", $date);
     $day = $getdate[1];
     $month = $getdate[0];
@@ -45,7 +45,7 @@ if (empty($_SESSION['isSession'])){
                 'bank_acc_id' => $fbank_id,
                 'payment_account' => $faccount,
                 'payment_name' => $fname,
-                'payment_date' => $fdate,
+                'payment_date' => $date,
                 'payment_bank' => $fbank_name,
                 'created_date' => date("Y-m-d"),
                 'payment_status' => "verified"
@@ -58,7 +58,7 @@ if (empty($_SESSION['isSession'])){
                 'bank_acc_id' => $fbank_id,
                 'payment_account' => $faccount,
                 'payment_name' => $fname,
-                'payment_date' => $fdate,
+                'payment_date' => $date,
                 'payment_bank' => $fbank_name,
                 'created_date' => date("Y-m-d"),
                 'payment_attach' => $random.$fupload['name'],

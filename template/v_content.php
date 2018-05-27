@@ -35,6 +35,7 @@
             'checkout'=>'modules/customers/page_enroll.php',
             'do_save_checkout'=>'modules/customers/page_enroll.php',
             'riwayat-transaksi'=>'modules/customers/page_enroll.php',
+            'detail-transaksi'=>'modules/customers/page_enroll.php',
             'konfirmasi-pembayaran'=>'modules/customers/page_enroll.php',
             'do_save_payment'=>'modules/customers/page_enroll.php',
             'home'=>'modules/home.php'
@@ -56,6 +57,7 @@
             'checkout'=>'modules/orders/page_checkout.php',
             'do_save_checkout'=>'modules/orders/do_checkout.php',
             'riwayat-transaksi'=>'modules/orders/page_orders_history.php',
+            'detail-transaksi'=>'modules/orders/page_order_detail.php',
             'konfirmasi-pembayaran'=>'modules/payment/page_payment.php',
             'do_save_payment'=>'modules/payment/do_payment.php',
             'home'=>'modules/home.php'
