@@ -55,7 +55,7 @@ switch($getact){
                                     echo "<td>
                                             <a href='?page=$getpage&act=info&key=$row[order_uniqid]'><i class='fa fa-eye'></i> View</a>
                                         </td>";
-                                    echo "<td>#$row[order_id]</td>";
+                                    echo "<td>#$row[order_uniqid]</td>";
                                     echo "<td>$row[customer_name]</td>";
                                     echo "<td>". tgl_indo($row[order_date]) ."</td>";
                                     echo "<td>RP. ". format_IDR($row[order_subtotal]) ."</td>";
@@ -75,13 +75,13 @@ break;
 
 case "info";
 $key = htmlspecialchars($_GET["key"], ENT_QUOTES, 'UTF-8');
-$query = "SELECT o.order_id, o.customer_uniqid, o.order_qty, o.order_subtotal, o.destination, s.shipping_dest, s.shipping_cost, o.order_status "
+$query = "SELECT o.order_id, o.order_uniqid, o.customer_uniqid, o.order_qty, o.order_subtotal, o.destination, s.shipping_dest, s.shipping_cost, o.order_status "
         . "FROM orders AS o "
         . "INNER JOIN shipping AS s ON o.shipping_id = s.shipping_id "
         . "WHERE o.order_uniqid = '$key' ";
 if( $database->num_rows( $query ) > 0 )
 {
-    list( $id, $customer, $order_qty, $order_subtotal, $dest, $sdest, $scost, $status ) = $database->get_row( $query );
+    list( $id, $uniqid, $customer, $order_qty, $order_subtotal, $dest, $sdest, $scost, $status ) = $database->get_row( $query );
     $shippcost = $order_qty * $scost;
     $total = $order_subtotal + $scost;
     $total_qty = 0;
@@ -101,7 +101,7 @@ if( $database->num_rows( $query ) > 0 )
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h5>Invoice #<?php echo $id;?></h5>
+                <h5>Invoice #<?php echo $uniqid;?></h5>
             </div>
             <div class="panel-body">
                 <div class="row">
