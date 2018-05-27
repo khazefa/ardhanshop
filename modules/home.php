@@ -5,15 +5,25 @@
     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
   </ol>
   <div class="carousel-inner" role="listbox">
-    <div class="carousel-item active">
-      <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
-    </div>
-    <div class="carousel-item">
-      <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
-    </div>
-    <div class="carousel-item">
-      <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
-    </div>
+    <?php
+        $img_path = UPLOADS_DIR . "images" . DIRECTORY_SEPARATOR;
+        
+        echo '<div class="carousel-item active">';
+            echo '<img class="d-block img-fluid" src="'.$img_path.'912813banner_1.jpg">';
+        echo '</div>';
+            
+        $query = "SELECT * FROM banner ORDER BY banner_id DESC LIMIT 3";
+        $results = $database->get_results( $query );
+        $no = 1;
+        foreach( $results as $row )
+        {
+            $img_path = UPLOADS_DIR . "images" . DIRECTORY_SEPARATOR;
+            $pict = !empty($row["banner_pict"]) ? '<img class="d-block img-fluid" src="'.$img_path.$row["banner_pict"].'">' : '<img class="d-block img-fluid" src="http://placehold.it/900x350">';
+            echo '<div class="carousel-item">';
+                echo $pict;
+            echo '</div>';
+        }
+    ?>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
