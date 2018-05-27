@@ -73,9 +73,14 @@ function load_courier() {
             success:function(response, data)
             {
                 var $courier = $('#fcourier_checkout');
-//                $courier.empty();
-                for (var i = 0; i < response.length; i++) {
-                    $courier.append('<option value=' + response[i].shipp_id + '>' + response[i].shipp_courier + '</option>');
+                if(fcity == 0){
+                    $courier.empty();
+                    $courier.append('<option value=0>--</option>');
+                }else{
+                    $courier.empty();
+                    for (var i = 0; i < response.length; i++) {
+                        $courier.append('<option value=' + response[i].shipp_id + '>' + response[i].shipp_courier + '</option>');
+                    }
                 }
 
                 //manually trigger a change event for the courier so that the change handler will get triggered
@@ -94,9 +99,10 @@ function calculate_shipping() {
     $('#fcourier_checkout').change(function () {
         var fcourier = $(this).val();
         var fsubtotal = $("#fsubtotal_checkout").val();
+        var fweight = $("#fweight_checkout").val();
 
         $.ajax({
-            url:"cart_item.php?act=shipping-total&fcourier="+fcourier+"&fsubtotal="+fsubtotal,
+            url:"cart_item.php?act=shipping-total&fcourier="+fcourier+"&fsubtotal="+fsubtotal+"&fweight="+fweight,
             type:"GET",
             dataType:"json",
             success:function(response, data)
