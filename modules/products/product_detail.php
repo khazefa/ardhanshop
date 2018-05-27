@@ -69,11 +69,11 @@
   </div>
 </div>
 <div id="details" class="box mb-4 mt-4">
-  <p></p>
   <h4>Detail Produk</h4>
   <?php
     echo $fdesc;
   ?>
+  <p>Berat : <?php echo $weight." Kg";?></p>
 <div class="row">
   <div class="col-lg-12">
     <div class="box text-uppercase mt-0 mb-small">
