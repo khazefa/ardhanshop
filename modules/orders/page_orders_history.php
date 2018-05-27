@@ -33,7 +33,7 @@
             $results = $database->get_results( $query );
             foreach( $results as $row )
             {
-                $btn_paid = ($row["order_status"] == "invoiced") ? '<a href="?page=konfirmasi-pembayaran" class="btn btn-warning btn-sm">Bayar</a>' : '';
+                $btn_paid = ($row["order_status"] == "invoiced") ? '<a href="?page=konfirmasi-pembayaran&key='.$row["order_uniqid"].'" class="btn btn-warning btn-sm">Bayar</a>' : '';
                 echo '<tr>';
                     echo '<th>#'.$row["order_uniqid"].'</th>';
                     echo '<td>'.tgl_indo($row["order_date"]).'</td>';
