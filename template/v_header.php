@@ -66,6 +66,8 @@
 
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                               <a class="dropdown-item" href="?page=profil-akun">Edit Akun</a>
+                              <a class="dropdown-item" href="?page=riwayat-transaksi">Riwayat Transaksi</a>
+                              <a class="dropdown-item" href="?page=konfirmasi-pembayaran">Konfirmasi Pembayaran</a>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="logout.php">Log Out</a>
                             </div>
