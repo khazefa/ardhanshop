@@ -79,7 +79,8 @@ if (empty($_SESSION['isSession'])){
 
     <div class="col-lg-8">
     <form method="POST" action="?page=do_save_checkout">
-    <input type="hidden" name="furl" value="<?php echo $getpage;?>" readonly>
+    <input type="hidden" name="furl" value="riwayat-transaksi" readonly>
+    <input type="hidden" name="fcustomer" id="fcustomer" value="<?php echo $uniqid;?>" readonly>
     <input type="hidden" name="fqty_checkout" id="fqty_checkout" value="<?php echo $total_qty;?>" readonly>
     <input type="hidden" name="fsubtotal_checkout" id="fsubtotal_checkout" value="<?php echo $total;?>" readonly>
     <input type="hidden" name="fweight_checkout" id="fweight_checkout" value="<?php echo $total_weight;?>" readonly>
@@ -140,6 +141,14 @@ if (empty($_SESSION['isSession'])){
           <select name="fcourier_checkout" id="fcourier_checkout" class="form-control">
               <option value="0" selected>--</option>
           </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="fnotes">Catatan</label>
+          <textarea name="fnotes" id="fnotes" class="form-control"></textarea>
         </div>
       </div>
     </div>
