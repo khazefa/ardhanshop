@@ -74,16 +74,19 @@ require("includes/common_helper.php");
         //get shipping list
         $fcourier = htmlspecialchars($_GET["fcourier"], ENT_QUOTES, 'UTF-8');
         $fsubtotal = (int)$_GET["fsubtotal"];
+        $fweight = (int)$_GET["fweight"];
+        
         $query = "SELECT shipping_cost FROM shipping "
                 . "WHERE shipping_id = '$fcourier'";
         if( $database->num_rows( $query ) > 0 )
         {
             list( $cost ) = $database->get_row( $query );
-            $cost_rp = "Rp. ".format_IDR($cost);
-            $total = $fsubtotal + $cost;
+            $fcost = $cost * $fweight;
+            $cost_rp = "Rp. ".format_IDR($fcost);
+            $total = $fsubtotal + $fcost;
             $total_rp = "Rp. ".format_IDR($total);
             
-            $val_arr = array('shipp_cost' => $cost, 'shipp_cost_rp' => $cost_rp, 
+            $val_arr = array('shipp_cost' => $fcost, 'shipp_cost_rp' => $cost_rp, 
                 'orders_total' => $total, 'orders_total_rp' => $total_rp);
         }else{
             $val_arr = array();
