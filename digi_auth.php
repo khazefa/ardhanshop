@@ -29,6 +29,13 @@ if (!ctype_alnum($pass)){
         $_SESSION['vcName']	= $uname;
         $_SESSION['vcMail']	= $umail;
         
+        $query_c = "SELECT customer_uniqid FROM customers WHERE customer_email='$email'";
+        if( $database->num_rows( $query_c ) > 0 )
+        {
+            list( $ukey ) = $database->get_row( $query_c );
+            $_SESSION['vcUid']	= $ukey;
+        }
+        
         $url = $baseurl;
         echo "<script type='text/javascript'>window.location.href = '".$url."';</script>";
         exit();
