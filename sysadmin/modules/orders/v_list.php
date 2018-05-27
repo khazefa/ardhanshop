@@ -84,6 +84,7 @@ if( $database->num_rows( $query ) > 0 )
     list( $id, $customer, $order_qty, $order_subtotal, $dest, $sdest, $scost, $status ) = $database->get_row( $query );
     $shippcost = $order_qty * $scost;
     $total = $order_subtotal + $scost;
+    $total_qty = 0;
     
     if ($status=='invoiced'){
 //        $sp = array(array('paid','Paid'),array('sent','Sent'),array('cancel','Cancel'));
@@ -129,16 +130,20 @@ if( $database->num_rows( $query ) > 0 )
                             {
                                 $img_path = "../" . UPLOADS_DIR . "products" . DIRECTORY_SEPARATOR;
                                 $pict = !empty($row[product_pict]) ? "<img class='img-responsive' src='$img_path$row[product_pict]' width='100px'>" : "NO IMAGE";
-                                $discrp = $row[product_price] * ($row[discount]/100);
+
+                                $fdiscount = format_IDR($row["discount"]);
+                                $total_qty = $total_qty + $row["qty"];
                                 echo "<tr>";
                                     echo "<td class='text-center'>$pict</td>";
                                     echo "<td>$row[product_name]</td>";
                                     echo "<td>$row[qty]</td>";
                                     echo "<td>RP. ". format_IDR($row[product_price]) ."</td>";
-                                    echo "<td>RP. ". format_IDR($discrp) ."</td>";
+                                    echo "<td>RP. ". $fdiscount ."</td>";
                                     echo "<td>RP. ". format_IDR($row[subtotal]) ."</td>";
                                 echo "</tr>";
                             }
+                            $fshipping_cost = $total_qty * $shippcost;
+                            $ftotal = $total + $fshipping_cost;
                         ?>
                         </tbody>
                         </table>
@@ -179,10 +184,10 @@ if( $database->num_rows( $query ) > 0 )
                                 <td>Subtotal Order</td><td>: <?php echo "Rp. ".format_IDR($order_subtotal);?></td>
                             </tr>
                             <tr>
-                                <td>Biaya Kirim</td><td>: <?php echo "Rp. ".format_IDR($shippcost);?></td>
+                                <td>Biaya Kirim</td><td>: <?php echo "Rp. ".format_IDR($fshipping_cost);?></td>
                             </tr>
                             <tr>
-                                <td>Total</td><td>: <?php echo "Rp. ".format_IDR($total);?></td>
+                                <td>Total</td><td>: <?php echo "Rp. ".format_IDR($ftotal);?></td>
                             </tr>
                         </table>
                     </div>
