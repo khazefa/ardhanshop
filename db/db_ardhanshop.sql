@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2018 at 12:17 PM
+-- Generation Time: May 27, 2018 at 04:11 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.1.15
 
@@ -90,7 +90,7 @@ CREATE TABLE `customers` (
 INSERT INTO `customers` (`customer_id`, `customer_uniqid`, `customer_name`, `customer_email`, `customer_phone`, `customer_address`, `customer_city`, `customer_postcode`) VALUES
 (1, 'JH67TG', 'John Doe', 'johndoe@gmail.com', '081298987656', 'Jl. Taman Margasatwa No. 12, Warung Buncit', 'Jakarta Selatan', '12540'),
 (3, 'EOEZRC', 'Joko Sukoco', 'joko@gmail.com', '081290908989', 'Jl Mangga No. 12 Rawamangun', 'Jakart Timur', '13220'),
-(4, 'WST7L1', 'Joni', 'joni@gmail.com', '', '', '', '');
+(4, 'WST7L1', 'Joni', 'joni@gmail.com', '081389892626', 'Jl Dukuh No 4', 'Jakarta Selatan', '12940');
 
 -- --------------------------------------------------------
 
@@ -116,7 +116,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `order_uniqid`, `order_date`, `order_qty`, `order_subtotal`, `customer_uniqid`, `order_status`, `destination`, `shipping_id`, `order_notes`) VALUES
-(1, '0RGQQQP', '2018-05-27', 6, 2317000, 'EOEZRC', 'paid', 'Jl Nangka No. 05 Kranggan', 9, 'Test order');
+(1, '0RGQQQP', '2018-05-27', 6, 2317000, 'EOEZRC', 'complete', 'Jl Nangka No. 05 Kranggan', 9, 'Test order'),
+(2, 'DPBFOHB', '2018-05-27', 2, 622000, 'WST7L1', 'invoiced', 'Jl Dukuh No 4', 5, 'Test order Joni');
 
 -- --------------------------------------------------------
 
@@ -139,7 +140,8 @@ CREATE TABLE `orders_detail` (
 INSERT INTO `orders_detail` (`order_uniqid`, `product_uniqid`, `qty`, `discount`, `subtotal`) VALUES
 ('0RGQQQP', 'YT02SXKV0W', 2, 62500, 375000),
 ('0RGQQQP', '4L0ROJFG55', 2, 0, 574000),
-('0RGQQQP', 'NMZ58M9LCC', 2, 60000, 360000);
+('0RGQQQP', 'NMZ58M9LCC', 2, 60000, 360000),
+('DPBFOHB', 'YQBDR8TJME', 2, 0, 550000);
 
 -- --------------------------------------------------------
 
@@ -464,7 +466,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -506,7 +508,7 @@ ALTER TABLE `site_pages`
 -- AUTO_INCREMENT for table `tmp_orders`
 --
 ALTER TABLE `tmp_orders`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`

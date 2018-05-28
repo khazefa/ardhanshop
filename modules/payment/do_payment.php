@@ -32,57 +32,68 @@ if (empty($_SESSION['isSession'])){
      * Checking to see if a value exists
      */
     $check_column = 'order_uniqid';
-    $check_for = array( 'order_uniqid' => $forder );
+    $check_for = array( 'order_uniqid' => $forder, 'customer_uniqid' => $fcustomer );
     $exists = $database->exists( 'orders', $check_column,  $check_for );
     if( $exists )
     {   
-        $arrValue = array();
-        
-        if(empty($fupload['tmp_name'])){
-            $arrValue = array(
-                'order_uniqid' => $forder,
-                'customer_uniqid' => $fcustomer,
-                'bank_acc_id' => $fbank_id,
-                'payment_account' => $faccount,
-                'payment_name' => $fname,
-                'payment_date' => $date,
-                'payment_bank' => $fbank_name,
-                'created_date' => date("Y-m-d"),
-                'payment_status' => "verified"
-            );
-        }else{
-            uploadFile($fupload, $random, "receipt");
-            $arrValue = array(
-                'order_uniqid' => $forder,
-                'customer_uniqid' => $fcustomer,
-                'bank_acc_id' => $fbank_id,
-                'payment_account' => $faccount,
-                'payment_name' => $fname,
-                'payment_date' => $date,
-                'payment_bank' => $fbank_name,
-                'created_date' => date("Y-m-d"),
-                'payment_attach' => $random.$fupload['name'],
-                'payment_status' => "verified"
-            );
-        }
-
-//        var_dump($arrValue);exit();
-        
-        $add_query = $database->insert( 'payment', $arrValue );
-        if( $add_query )
+        /**
+         * Checking to see if a value exists
+         */
+        $check_column2 = 'order_uniqid';
+        $check_for2 = array( 'order_uniqid' => $forder, 'customer_uniqid' => $fcustomer );
+        $exists2 = $database->exists( 'payment', $check_column2,  $check_for2 );
+        if( $exists2 )
         {
-            $arrValue2 = array(
-                'order_status' => "paid"
-            );
-            //Add the WHERE clauses
-            $arrWhere = array(
-                'order_uniqid' => $forder
-            );
-            $updated = $database->update( 'orders', $arrValue2, $arrWhere, 1 );
-            
-            $url = $baseurl.'?page=riwayat-transaksi';
-            echo "<script type='text/javascript'>window.location.href = '".$url."';</script>";
+            $url = $baseurl.'?page='.$furl;
+            echo "<script type='text/javascript'>alert('Pembayaran untuk Nomor Order ini sudah dilakukan.');window.location.href = '".$url."';</script>";
             exit();
+        }else{
+            $arrValue = array();
+
+            if(empty($fupload['tmp_name'])){
+                $arrValue = array(
+                    'order_uniqid' => $forder,
+                    'customer_uniqid' => $fcustomer,
+                    'bank_acc_id' => $fbank_id,
+                    'payment_account' => $faccount,
+                    'payment_name' => $fname,
+                    'payment_date' => $date,
+                    'payment_bank' => $fbank_name,
+                    'created_date' => date("Y-m-d"),
+                    'payment_status' => "verified"
+                );
+            }else{
+                uploadFile($fupload, $random, "receipt");
+                $arrValue = array(
+                    'order_uniqid' => $forder,
+                    'customer_uniqid' => $fcustomer,
+                    'bank_acc_id' => $fbank_id,
+                    'payment_account' => $faccount,
+                    'payment_name' => $fname,
+                    'payment_date' => $date,
+                    'payment_bank' => $fbank_name,
+                    'created_date' => date("Y-m-d"),
+                    'payment_attach' => $random.$fupload['name'],
+                    'payment_status' => "verified"
+                );
+            }
+
+            $add_query = $database->insert( 'payment', $arrValue );
+            if( $add_query )
+            {
+                $arrValue2 = array(
+                    'order_status' => "paid"
+                );
+                //Add the WHERE clauses
+                $arrWhere = array(
+                    'order_uniqid' => $forder
+                );
+                $updated = $database->update( 'orders', $arrValue2, $arrWhere, 1 );
+
+                $url = $baseurl.'?page=riwayat-transaksi';
+                echo "<script type='text/javascript'>window.location.href = '".$url."';</script>";
+                exit();
+            }   
         }
     }else{
         $url = $baseurl.'?page='.$furl;

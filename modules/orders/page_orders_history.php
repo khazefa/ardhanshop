@@ -34,9 +34,10 @@ if (empty($_SESSION['isSession'])){
         </thead>
         <tbody>
         <?php
+            $fcustomer = $_SESSION['vcUid'];
             //select orders from last 7 days
-            $query = "SELECT * FROM orders WHERE order_date >= DATE(NOW()) - INTERVAL 7 DAY ORDER BY order_date DESC";
-//            $query = "SELECT * FROM orders ORDER BY order_date DESC";
+            $query = "SELECT * FROM orders WHERE customer_uniqid = '".$fcustomer."' AND order_date >= DATE(NOW()) - INTERVAL 7 DAY ORDER BY order_date DESC";
+//            $query = "SELECT * FROM orders WHERE customer_uniqid = '".$fcustomer."' ORDER BY order_date DESC";
             $results = $database->get_results( $query );
             foreach( $results as $row )
             {
