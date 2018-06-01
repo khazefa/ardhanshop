@@ -437,4 +437,34 @@ function nohtml($message)
     $message = htmlspecialchars($message, ENT_QUOTES);
     return $message;
 }
+
+/**
+ * filterInput
+ *
+ * Sanitize Input String
+ *
+ * @return	Clean Input String
+ */
+function filterInput($content)
+{
+    $content = trim($content);
+    $content = stripslashes($content);
+
+    return $content;
+}
+
+/**
+ * filterOutput
+ *
+ * Sanitize Output String for viewing data
+ *
+ * @return	Clean Output String
+ */
+function filterOutput($content)
+{
+    $content = htmlentities($content, ENT_NOQUOTES);
+    $content = nl2br($content, false);
+
+    return $content;
+}
 ?>
