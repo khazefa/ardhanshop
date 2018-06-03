@@ -5,5 +5,5 @@
 !*/cache/index.html
 !*/cache/.htaccess
 
-/nbproject/private/
 nbproject/
+*/nbproject/private/
