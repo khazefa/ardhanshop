@@ -41,6 +41,7 @@ switch($getact){
             </div>
             <div class="panel-body">
                 <form role="form" class="form-horizontal" method="POST" action="<?php echo $act;?>" target="_blank">
+                    <input type="hidden" name="furl" value="<?php echo $getpage;?>" readonly="readonly">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Sales Date</label>
                         <div class="col-sm-4">

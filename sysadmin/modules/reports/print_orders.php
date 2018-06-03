@@ -14,6 +14,8 @@ if(!isset($isLoggedIn) || $isLoggedIn != TRUE){
     $database = DB::getInstance();
     require_once("../../../includes/common_helper.php");
 
+    $furl = isset($_POST["furl"]) ? filter_var($_POST['furl'], FILTER_SANITIZE_STRING) : null;
+    
     $fdatepre = isset($_POST["fdatepre"]) ? filter_var($_POST['fdatepre'], FILTER_SANITIZE_STRING) : null;
     $fdatepost = isset($_POST["fdatepost"]) ? filter_var($_POST['fdatepost'], FILTER_SANITIZE_STRING) : null;
     
@@ -108,30 +110,37 @@ if(!isset($isLoggedIn) || $isLoggedIn != TRUE){
     $query = "SELECT o.order_uniqid, o.order_date, c.customer_name, o.order_qty, "
             . "o.order_subtotal, o.order_status FROM orders AS o "
             . "INNER JOIN customers AS c ON o.customer_uniqid = c.customer_uniqid "
-            . "WHERE o.order_status = 'complete' ORDER BY o.order_date ASC";
-    $results = $database->get_results( $query );
+            . "WHERE o.order_status = 'complete' AND (o.order_date BETWEEN '$fdatepre' AND '$fdatepost') "
+            . "ORDER BY o.order_date ASC";
     $no = 1;
     $total_qty = 0;
     $total_sales = 0;
-    foreach( $results as $row )
-    {
-        $date = tgl_indo($row['order_date']);
-        $qty = (int)$row['order_qty'];
-        $subtotal = $row['order_subtotal'];
-        $subtotal_rp = "Rp. ".format_IDR($row['order_subtotal']);
-        $status = strtoupper($row['order_status']);
-        $total_qty = $total_qty + $qty;
-        $total_sales = $total_sales + $subtotal;
-        $total_sales_rp = "Rp. ".format_IDR($total_sales);
-        
-        $pdf->Cell(($width*(5/100)),6,$no,1,0);
-        $pdf->CellFitScale(($width*(10/100)),6,$row['order_uniqid'],1,0);
-        $pdf->CellFitScale(($width*(15/100)),6,$date,1,0);
-        $pdf->CellFitScale(($width*(25/100)),6,$row['customer_name'],1,0);
-        $pdf->CellFitScale(($width*(5/100)),6,$qty,1,0);
-        $pdf->CellFitScale(($width*(20/100)),6,$subtotal_rp,1,1);
-        $no++;
-    }
+    $total_sales_rp = "";
+//    if( $database->num_rows( $query ) > 0 )
+//    {
+        $results = $database->get_results( $query );
+        foreach( $results as $row )
+        {
+            $date = tgl_indo($row['order_date']);
+            $qty = (int)$row['order_qty'];
+            $subtotal = $row['order_subtotal'];
+            $subtotal_rp = "Rp. ".format_IDR($row['order_subtotal']);
+            $status = strtoupper($row['order_status']);
+            $total_qty = $total_qty + $qty;
+            $total_sales = $total_sales + $subtotal;
+            $total_sales_rp = "Rp. ".format_IDR($total_sales);
+
+            $pdf->Cell(($width*(5/100)),6,$no,1,0);
+            $pdf->CellFitScale(($width*(10/100)),6,$row['order_uniqid'],1,0);
+            $pdf->CellFitScale(($width*(15/100)),6,$date,1,0);
+            $pdf->CellFitScale(($width*(25/100)),6,$row['customer_name'],1,0);
+            $pdf->CellFitScale(($width*(5/100)),6,$qty,1,0);
+            $pdf->CellFitScale(($width*(20/100)),6,$subtotal_rp,1,1);
+            $no++;
+        }
+//    }else{
+//        header('location:../../?page='.$furl);
+//    }
     
     $pdf->Ln(1);
     $pdf->Cell(($width*(90/100)),7,'Total Qty : '.$total_qty.' items',0,1,'R');
