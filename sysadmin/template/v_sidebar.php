@@ -40,6 +40,7 @@
                         <li><a href="?page=user-list"><em class="fa fa-user-md">&nbsp;</em> User List</a></li>
                         <li><a href="?page=list-banner"><em class="fa fa-image">&nbsp;</em> Site Banner</a></li>
                         <li><a href="?page=list-pages"><em class="fa fa-sitemap">&nbsp;</em> Site Pages</a></li>
+                        <li><a href="?page=sales-report"><em class="fa fa-book">&nbsp;</em> Sales Report</a></li>
 			<li><a href="logout.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
 		</ul>
 	</div><!--/.sidebar-->

@@ -22,6 +22,7 @@
         'list-pages'=>'modules/pages/v_list.php',
         'list-banner'=>'modules/banner/v_list.php',
         'user-list'=>'modules/users/v_list.php',
+        'sales-report'=>'modules/reports/v_orders.php',
         'dashboard'=>'modules/dashboard.php'
     );
 

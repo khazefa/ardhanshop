@@ -1,9 +1,17 @@
 <?php
-$pagetitle = "Items Category";
-$act = "modules/products-cat/do_task.php";
+error_reporting(0);
+$isLoggedIn = $_SESSION['isLoggedin'];
 
-$getpage = "items-cat";
-$getact = htmlspecialchars($_GET["act"], ENT_QUOTES, 'UTF-8');
+if(!isset($isLoggedIn) || $isLoggedIn != TRUE){
+    header('HTTP/1.1 403 Forbidden.', TRUE, 403);
+    echo 'You dont have permissions to access this page! <a href="javascript:history.back()">Back</a>';
+    exit(1); // EXIT_ERROR
+}else{
+    $pagetitle = "Items Category";
+    $act = "modules/products-cat/do_task.php";
+
+    $getpage = "items-cat";
+    $getact = htmlspecialchars($_GET["act"], ENT_QUOTES, 'UTF-8');
 ?>
 <div class="row">
     <ol class="breadcrumb">
@@ -135,5 +143,6 @@ echo '<div class="row"><div class="col-lg-12"> '
     . '</div></div>';
 }
 break;
+}
 }
 ?>
