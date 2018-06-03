@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 31, 2018 at 06:04 AM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.1.15
+-- Host: localhost:3306
+-- Generation Time: Jun 03, 2018 at 07:14 AM
+-- Server version: 5.7.19
+-- PHP Version: 7.2.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
