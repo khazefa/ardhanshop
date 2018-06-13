@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 03, 2018 at 07:14 AM
+-- Generation Time: Jun 13, 2018 at 01:50 PM
 -- Server version: 5.7.19
--- PHP Version: 7.2.2
+-- PHP Version: 7.1.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -111,14 +111,6 @@ CREATE TABLE `orders` (
   `order_notes` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`order_id`, `order_uniqid`, `order_date`, `order_qty`, `order_subtotal`, `customer_uniqid`, `order_status`, `destination`, `shipping_id`, `order_notes`) VALUES
-(1, '0RGQQQP', '2018-05-27', 6, 2317000, 'EOEZRC', 'complete', 'Jl Nangka No. 05 Kranggan', 9, 'Test order'),
-(2, 'DPBFOHB', '2018-05-27', 2, 622000, 'WST7L1', 'invoiced', 'Jl Dukuh No 4', 5, 'Test order Joni');
-
 -- --------------------------------------------------------
 
 --
@@ -132,16 +124,6 @@ CREATE TABLE `orders_detail` (
   `discount` int(2) NOT NULL,
   `subtotal` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `orders_detail`
---
-
-INSERT INTO `orders_detail` (`order_uniqid`, `product_uniqid`, `qty`, `discount`, `subtotal`) VALUES
-('0RGQQQP', 'YT02SXKV0W', 2, 62500, 375000),
-('0RGQQQP', '4L0ROJFG55', 2, 0, 574000),
-('0RGQQQP', 'NMZ58M9LCC', 2, 60000, 360000),
-('DPBFOHB', 'YQBDR8TJME', 2, 0, 550000);
 
 -- --------------------------------------------------------
 
@@ -162,13 +144,6 @@ CREATE TABLE `payment` (
   `payment_attach` varchar(100) NOT NULL,
   `payment_status` varchar(10) NOT NULL COMMENT 'pending | verified'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `payment`
---
-
-INSERT INTO `payment` (`payment_id`, `order_uniqid`, `customer_uniqid`, `bank_acc_id`, `payment_account`, `payment_name`, `payment_date`, `payment_bank`, `created_date`, `payment_attach`, `payment_status`) VALUES
-(1, '0RGQQQP', 'EOEZRC', 1, '1232423443', 'Joko Sukoco', '2018-05-27', 'BCA', '2018-05-27', '418497bukti_trf_bca_1.jpg', 'verified');
 
 -- --------------------------------------------------------
 
@@ -466,13 +441,13 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `payment_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `payment_id` int(5) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -508,7 +483,7 @@ ALTER TABLE `site_pages`
 -- AUTO_INCREMENT for table `tmp_orders`
 --
 ALTER TABLE `tmp_orders`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
