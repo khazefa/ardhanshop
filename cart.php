@@ -23,40 +23,58 @@ if (empty($_SESSION['isSession'])){
         $fcartuniq = $sid;
         $fcarttime = date("Y-m-d H:i:s");
         
-        $query = "SELECT 1 FROM tmp_orders "
-                . "WHERE product_uniqid='$funiqid' AND cart_uniqid='$fcartuniq'";
-        if( $database->num_rows( $query ) < 1 )
+        $qry_stock = "SELECT product_stock FROM products "
+        . "WHERE product_uniqid='$funiqid'";
+        if( $database->num_rows( $qry_stock ) > 0 )
         {
-            $arrValue = array(
-                'product_uniqid' => $funiqid,
-                'cart_uniqid' => $fcartuniq,
-                'cart_qty' => $fqty,
-                'cart_time' => $fcarttime
-            );
+            list( $stockdb ) = $database->get_row( $qry_stock );
+            $stock = (int) $stockdb;
+            
+            if($stock === 0){
+                $url = $baseurl.'?page='.$furl;
+                echo "<script type='text/javascript'>alert('Maaf stok produk sedang kosong.');window.location.href = '".$url."';</script>";
+                exit();
+            }elseif($fqty > $stock){
+                $url = $baseurl.'?page='.$furl;
+                echo "<script type='text/javascript'>alert('Jumlah permintaan Anda melebihi stok produk kami.');window.location.href = '".$url."';</script>";
+                exit();
+            }else{
+                $query = "SELECT 1 FROM tmp_orders "
+                        . "WHERE product_uniqid='$funiqid' AND cart_uniqid='$fcartuniq'";
+                if( $database->num_rows( $query ) < 1 )
+                {
+                    $arrValue = array(
+                        'product_uniqid' => $funiqid,
+                        'cart_uniqid' => $fcartuniq,
+                        'cart_qty' => $fqty,
+                        'cart_time' => $fcarttime
+                    );
 
-            $add_query = $database->insert( 'tmp_orders', $arrValue );
-            if( $add_query )
-            {
-                $url = $baseurl.'?page='.$furl;
-                echo "<script type='text/javascript'>window.location.href = '".$url."';</script>";
-                exit();
-            }
-        }else{
-            $arrValue = array(
-                'cart_qty' => $fqty,
-                'cart_time' => $fcarttime
-            );
-            //Add the WHERE clauses
-            $arrWhere = array(
-                'cart_uniqid' => $fcartuniq,
-                'product_uniqid' => $funiqid
-            );
-            $updated = $database->update( 'tmp_orders', $arrValue, $arrWhere, 1 );
-            if( $updated )
-            {
-                $url = $baseurl.'?page='.$furl;
-                echo "<script type='text/javascript'>window.location.href = '".$url."';</script>";
-                exit();
+                    $add_query = $database->insert( 'tmp_orders', $arrValue );
+                    if( $add_query )
+                    {
+                        $url = $baseurl.'?page='.$furl;
+                        echo "<script type='text/javascript'>window.location.href = '".$url."';</script>";
+                        exit();
+                    }
+                }else{
+                    $arrValue = array(
+                        'cart_qty' => $fqty,
+                        'cart_time' => $fcarttime
+                    );
+                    //Add the WHERE clauses
+                    $arrWhere = array(
+                        'cart_uniqid' => $fcartuniq,
+                        'product_uniqid' => $funiqid
+                    );
+                    $updated = $database->update( 'tmp_orders', $arrValue, $arrWhere, 1 );
+                    if( $updated )
+                    {
+                        $url = $baseurl.'?page='.$furl;
+                        echo "<script type='text/javascript'>window.location.href = '".$url."';</script>";
+                        exit();
+                    }
+                }
             }
         }
     }
@@ -69,10 +87,15 @@ if (empty($_SESSION['isSession'])){
         
         $query = "SELECT product_stock FROM products WHERE product_uniqid = '$funiqid' ";
         
-        list( $stock ) = $database->get_row( $query );
-        if($fqty > $stock){
+        list( $stockdb ) = $database->get_row( $query );
+        $stock = (int) $stockdb;
+        if($stock === 0){
+                $url = $baseurl.'?page='.$furl;
+                echo "<script type='text/javascript'>alert('Maaf stok produk sedang kosong.');window.location.href = '".$url."';</script>";
+                exit();
+        }elseif($fqty > $stock){
             $url = $baseurl.'?page='.$furl;
-            echo "<script type='text/javascript'>alert('Maaf stok tidak mencukupi');window.location.href = '".$url."';</script>";
+            echo "<script type='text/javascript'>alert('Jumlah permintaan Anda melebihi stok produk kami.');window.location.href = '".$url."';</script>";
             exit();
         }else{
             $arrValue = array(
@@ -106,11 +129,16 @@ if (empty($_SESSION['isSession'])){
         for ($i=0; $i <= $count; $i++){
             $query = "SELECT product_stock FROM products WHERE product_uniqid = '$fuid[$i]' ";
 
-            list( $stock ) = $database->get_row( $query );
+            list( $stockdb ) = $database->get_row( $query );
+            $stock = (int) $stockdb;
             
-            if($fqty[$i] > $stock){
+            if($stock === 0){
                 $url = $baseurl.'?page='.$furl;
-                echo "<script type='text/javascript'>alert('Maaf stok tidak mencukupi');window.location.href = '".$url."';</script>";
+                echo "<script type='text/javascript'>alert('Maaf stok produk sedang kosong.');window.location.href = '".$url."';</script>";
+                exit();
+            }elseif($fqty[$i] > $stock){
+                $url = $baseurl.'?page='.$furl;
+                echo "<script type='text/javascript'>alert('Jumlah permintaan Anda melebihi stok produk kami.');window.location.href = '".$url."';</script>";
             }elseif($fqty[$i] == 0){
                 $url = $baseurl.'?page='.$furl;
                 echo "<script type='text/javascript'>alert('Anda tidak boleh menginputkan angka 0 atau mengkosongkannya!');window.location.href = '".$url."';</script>";

@@ -72,7 +72,7 @@ if (empty($_SESSION['isSession'])){
                             echo '<td>';
                                 echo '<input type="hidden" name="fid[]" value="'.$fid.'">';
                                 echo '<input type="hidden" name="fuid[]" value="'.$funiqid.'">';
-                                echo '<input type="number" name="fqty[]" value="'.$fqty.'" class="form-control">';
+                                echo '<input type="text" name="fqty[]" value="'.$fqty.'" class="col-sm-5" pattern="\d*">';
                             echo '</td>';
                             echo '<td>Rp. '.$fprice.'</td>';
                             echo '<td>Rp. '.$fdiscount.'</td>';
